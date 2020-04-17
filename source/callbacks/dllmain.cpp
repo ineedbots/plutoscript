@@ -3,7 +3,7 @@
 
 DLL_EXPORT void on_initialize_context(const char* script, chaiscript::ChaiScript* chai)
 {
-    callbacks::set_context(chai);
+    callbacks::set_chai(chai);
     callbacks::cleanup();
     chai->add(chaiscript::fun(callbacks::add_callback_startup_game), "add_callback_startup_game");
     chai->add(chaiscript::fun(callbacks::add_callback_player_connect), "add_callback_player_connect");

@@ -19,8 +19,9 @@ chaiscript code:
 ``` cpp
 def onStartupGameType()
 {
-	print("[main.chai] onStartupGameType");
+
 }
+
 /*
 Params:
 	ePlayer: 	entity
@@ -30,6 +31,7 @@ def onPlayerConnect(ePlayer)
 {
 
 }
+
 /*
 Params:
 	ePlayer: 	entity
@@ -39,6 +41,7 @@ def onPlayerConnected(ePlayer)
 {
 
 }
+
 /*
 Params:
 	ePlayer: 	entity
@@ -48,6 +51,7 @@ def onPlayerSpawned(ePlayer)
 {
 
 }
+
 /*
 Params:
 	ePlayer: 	entity
@@ -57,6 +61,7 @@ def onPlayerDisconnect(ePlayer)
 {
 
 }
+
 /*
 Params:
 	ePlayer: 	entity
@@ -70,10 +75,11 @@ Params:
 	sHitloc:	string
 	return: 	void
 */
-def onPlayerDamaged(ePlayer, eInflictor, eAttacker, iDamage, iDflags, sMeansOfDeath, sWeapon, vDir, sHitloc)
+def onPlayerDamage(ePlayer, eInflictor, eAttacker, iDamage, iDflags, sMeansOfDeath, sWeapon, vDir, sHitloc)
 {
 
 }
+
 /*
 Params:
 	ePlayer: 	entity
@@ -94,7 +100,9 @@ def onPlayerKilled(ePlayer, eInflictor, eAttacker, iDamage, sMeansOfDeath, sWeap
 add_callback_startup_game(onStartupGameType);
 add_callback_player_connect(onPlayerConnect);
 add_callback_player_disconnect(onPlayerDisconnect);
-add_callback_player_damage(onPlayerDamaged);
+add_callback_player_damage(onPlayerDamage);
 add_callback_player_killed(onPlayerKilled);
+level.onNotify("connected", onPlayerConnected);
+level.onNotify("player_spawned", onPlayerSpawned);
 ```
 ### more to come ...
