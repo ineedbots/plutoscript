@@ -21,35 +21,74 @@ def onStartupGameType()
 {
 	print("[main.chai] onStartupGameType");
 }
-
-def onPlayerConnect(self)
+/*
+Params:
+	ePlayer: 	entity
+	return: 	void
+*/
+def onPlayerConnect(ePlayer)
 {
-	print("[main.chai] onPlayerConnect(${self})");
+
 }
-
-def onPlayerConnected(self)
+/*
+Params:
+	ePlayer: 	entity
+	return: 	void
+*/
+def onPlayerConnected(ePlayer)
 {
-	print("[main.chai] onPlayerConnected(${self})");
+
 }
-
-def onPlayerSpawned(self)
+/*
+Params:
+	ePlayer: 	entity
+	return: 	void
+*/
+def onPlayerSpawned(ePlayer)
 {
-	print("[main.chai] onPlayerSpawned(${self})");
+
 }
-
-def onPlayerDisconnect(self)
+/*
+Params:
+	ePlayer: 	entity
+	return: 	void
+*/
+def onPlayerDisconnect(ePlayer)
 {
-	print("[main.chai] onPlayerDisconnect(${self})");
+
 }
-
-def onPlayerDamaged(self, inflictor, attacker, damage, dflags, meansOfDeath, weapon, point, dir, hitloc)
+/*
+Params:
+	ePlayer: 	entity
+	eInflictor: 	entity
+	eAttacker: 	entity
+	iDamage:	integer
+	iDflags:	integer
+	sMeansOfDeath:	string
+	sWeapon:	string
+	vDir:		vector
+	sHitloc:	string
+	return: 	void
+*/
+def onPlayerDamaged(ePlayer, eInflictor, eAttacker, iDamage, iDflags, sMeansOfDeath, sWeapon, vDir, sHitloc)
 {
-	print("[main.chai] onPlayerDamaged(e${self}, e${inflictor}, e${attacker}, ${damage}, ${dflags}, ${meansOfDeath}, ${weapon}, ${point}, ${dir}, ${hitloc})");
+
 }
-
-def onPlayerKilled(self, inflictor, attacker, damage, meansOfDeath, weapon, dir, hitloc)
+/*
+Params:
+	ePlayer: 	entity
+	eInflictor: 	entity
+	eAttacker: 	entity
+	iDamage:	integer
+	sMeansOfDeath:	string
+	sWeapon:	string
+	vDir:		vector
+	sHitloc:	string
+	return: 	void
+*/
+def onPlayerKilled(ePlayer, eInflictor, eAttacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitloc)
 {
-	print("[main.chai] onPlayerKilled(e${self}, e${inflictor}, e${attacker}, ${damage}, ${meansOfDeath}, ${weapon}, ${dir}, ${hitloc})");
+
 }
 
 add_callback_startup_game(onStartupGameType);
