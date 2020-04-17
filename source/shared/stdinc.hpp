@@ -1,6 +1,6 @@
 #pragma once
 
-//
+// Warnings
 #pragma warning(disable: 26812)
 
 // Windows

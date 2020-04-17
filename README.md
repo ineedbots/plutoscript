@@ -6,14 +6,9 @@ A collection of plugins to boost  **Plutonium IW5** script capabilities. Check [
 
 Static library included in all plugins to provide game data definitions and basic utility.
 
-**plutoscript types:**
-- `Vec3 (struct)`
-- `MeansOfDeath (enum)`
-- `HitLocation ( enum)`
-
 ## plutoscript-callbacks
 
-first approach, some things may not work.
+Killcams are broken due to a bug in Scr_PlayerDamage.
 
 chaiscript code:
 ``` cpp
@@ -105,4 +100,6 @@ add_callback_player_killed(onPlayerKilled);
 level.onNotify("connected", onPlayerConnected);
 level.onNotify("player_spawned", onPlayerSpawned);
 ```
-### more to come ...
+## plutoscript-callbacks
+
+Add support to handle server & client commands.
