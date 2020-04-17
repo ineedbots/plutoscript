@@ -100,6 +100,10 @@ add_callback_player_killed(onPlayerKilled);
 level.onNotify("connected", onPlayerConnected);
 level.onNotify("player_spawned", onPlayerSpawned);
 ```
-## plutoscript-callbacks
+## plutoscript-commands
 
 Add support to handle server & client commands.
+
+## plutoscript-snipers
+
+C++ patched Scr_PlayerDamage (sniper only) to bypass killcam bug

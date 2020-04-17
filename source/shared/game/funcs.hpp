@@ -12,6 +12,9 @@ namespace game
 	typedef char* (__cdecl* BG_GetWeaponNameComplete_t)(int weapon, bool isAlternate, char* output, unsigned int maxStringLen);
 	extern BG_GetWeaponNameComplete_t BG_GetWeaponNameComplete;
 
+	typedef int(__cdecl* BG_GetWeaponClass_t)(unsigned int weapon, bool isAlternate);
+	extern BG_GetWeaponClass_t BG_GetWeaponClass;
+
 	typedef unsigned int(__cdecl* Scr_GetEntityId_t)(int, unsigned int);
 	extern Scr_GetEntityId_t Scr_GetEntityId;
 }

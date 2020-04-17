@@ -215,25 +215,24 @@ namespace callbacks
 		mod_names[plutoscript::MOD_EXPLOSIVE] = "MOD_EXPLOSIVE";
 		mod_names[plutoscript::MOD_IMPACT] = "MOD_IMPACT";
 
-		hitloc_names[plutoscript::HITLOC_NONE] = "HITLOC_NONE";
-		hitloc_names[plutoscript::HITLOC_HELMET] = "HITLOC_HELMET";
-		hitloc_names[plutoscript::HITLOC_HEAD] = "HITLOC_HEAD";
-		hitloc_names[plutoscript::HITLOC_NECK] = "HITLOC_NECK";
-		hitloc_names[plutoscript::HITLOC_TORSO_UPR] = "HITLOC_TORSO_UPR";
-		hitloc_names[plutoscript::HITLOC_TORSO_LWR] = "HITLOC_TORSO_LWR";
-		hitloc_names[plutoscript::HITLOC_R_ARM_UPR] = "HITLOC_R_ARM_UPR";
-		hitloc_names[plutoscript::HITLOC_L_ARM_UPR] = "HITLOC_L_ARM_UPR";
-		hitloc_names[plutoscript::HITLOC_R_ARM_LWR] = "HITLOC_R_ARM_LWR";
-		hitloc_names[plutoscript::HITLOC_L_ARM_LWR] = "HITLOC_L_ARM_LWR";
-		hitloc_names[plutoscript::HITLOC_R_HAND] = "HITLOC_R_HAND";
-		hitloc_names[plutoscript::HITLOC_L_HAND] = "HITLOC_L_HAND";
-		hitloc_names[plutoscript::HITLOC_R_LEG_UPR] = "HITLOC_R_LEG_UPR";
-		hitloc_names[plutoscript::HITLOC_L_LEG_UPR] = "HITLOC_L_LEG_UPR";
-		hitloc_names[plutoscript::HITLOC_R_LEG_LWR] = "HITLOC_R_LEG_LWR";
-		hitloc_names[plutoscript::HITLOC_L_LEG_LWR] = "HITLOC_L_LEG_LWR";
-		hitloc_names[plutoscript::HITLOC_R_FOOT] = "HITLOC_R_FOOT";
-		hitloc_names[plutoscript::HITLOC_L_FOOT] = "HITLOC_L_FOOT";
-		hitloc_names[plutoscript::HITLOC_GUN] = "HITLOC_GUN";
-		hitloc_names[plutoscript::HITLOC_NUM] = "HITLOC_NUM";
+		hitloc_names[plutoscript::HITLOC_NONE] = "none";
+		hitloc_names[plutoscript::HITLOC_HELMET] = "helmet";
+		hitloc_names[plutoscript::HITLOC_HEAD] = "head";
+		hitloc_names[plutoscript::HITLOC_NECK] = "neck";
+		hitloc_names[plutoscript::HITLOC_TORSO_UPR] = "torso_upper";
+		hitloc_names[plutoscript::HITLOC_TORSO_LWR] = "torso_lower";
+		hitloc_names[plutoscript::HITLOC_R_ARM_UPR] = "right_arm_upper";
+		hitloc_names[plutoscript::HITLOC_L_ARM_UPR] = "left_arm_upper";
+		hitloc_names[plutoscript::HITLOC_R_ARM_LWR] = "right_arm_lower";
+		hitloc_names[plutoscript::HITLOC_L_ARM_LWR] = "left_arm_lower";
+		hitloc_names[plutoscript::HITLOC_R_HAND] = "right_hand";
+		hitloc_names[plutoscript::HITLOC_L_HAND] = "left_hand";
+		hitloc_names[plutoscript::HITLOC_R_LEG_UPR] = "right_leg_upper";
+		hitloc_names[plutoscript::HITLOC_L_LEG_UPR] = "left_leg_upper";
+		hitloc_names[plutoscript::HITLOC_R_LEG_LWR] = "right_leg_lower";
+		hitloc_names[plutoscript::HITLOC_L_LEG_LWR] = "left_leg_lower";
+		hitloc_names[plutoscript::HITLOC_R_FOOT] = "right_foot";
+		hitloc_names[plutoscript::HITLOC_L_FOOT] = "left_foot";
+		hitloc_names[plutoscript::HITLOC_GUN] = "shield";
 	}
 }

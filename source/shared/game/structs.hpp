@@ -4,6 +4,7 @@ namespace game
 {
 	typedef float vector3[3];
 
+	//------------------------ Script
 
 	typedef unsigned __int16 scr_string_t;
 	typedef unsigned __int16 scr_thread_t;
@@ -43,7 +44,7 @@ namespace game
 	};
 
 
-	//-------------------- Entity --------------------//
+	//------------------------ Entity
 
 	/*struct entity_shared
 	{
@@ -161,4 +162,115 @@ namespace game
 		HITLOC_GUN = 0x12,
 		HITLOC_NUM = 0x13,
 	};
+
+	//------------------------ Weapons
+
+	enum weapClass_t
+	{
+		WEAPCLASS_RIFLE = 0x0,
+		WEAPCLASS_SNIPER = 0x1,
+		WEAPCLASS_MG = 0x2,
+		WEAPCLASS_SMG = 0x3,
+		WEAPCLASS_SPREAD = 0x4,
+		WEAPCLASS_PISTOL = 0x5,
+		WEAPCLASS_GRENADE = 0x6,
+		WEAPCLASS_ROCKETLAUNCHER = 0x7,
+		WEAPCLASS_TURRET = 0x8,
+		WEAPCLASS_THROWINGKNIFE = 0x9,
+		WEAPCLASS_NON_PLAYER = 0xA,
+		WEAPCLASS_ITEM = 0xB,
+		WEAPCLASS_NUM = 0xC,
+	};
+
+
+	//------------------------ Cmd
+	enum LocalClientNum_t
+	{
+		LOCAL_CLIENT_INVALID = 0xFFFFFFFF,
+		LOCAL_CLIENT_0 = 0x0,
+		LOCAL_CLIENT_LAST = 0x0,
+		LOCAL_CLIENT_COUNT = 0x1,
+	};
+
+	struct CmdArgs
+	{
+		int nesting;
+		LocalClientNum_t localClientNum[8];
+		int controllerIndex[8];
+		int argc[8];
+		const char** argv[8];
+	};
+
+	struct CmdArgsPrivate
+	{
+		char textPool[8192];
+		const char* argvPool[512];
+		int usedTextPool[8];
+		int totalUsedArgvPool;
+		int totalUsedTextPool;
+	};
+
+	struct cmd_function_t
+	{
+		cmd_function_t* next;
+		const char* name;
+		const char* autoCompleteDir;
+		const char* autoCompleteExt;
+		void(__cdecl* function)();
+		int flags;
+	};
+
+
+	//------------------------ Dvars
+	union DvarValue
+	{
+		bool enabled;
+		int integer;
+		unsigned int unsignedInt;
+		float value;
+		float vector[4];
+		const char* string;
+		char color[4];
+	};
+
+	struct EnumLimits
+	{
+		int stringCount;
+		const char** strings;
+	};
+
+	struct IntegerLimits
+	{
+		int min;
+		int max;
+	};
+
+	struct FloatLimits
+	{
+		float min;
+		float max;
+	};
+
+	union DvarLimits
+	{
+		EnumLimits enumeration;
+		IntegerLimits integer;
+		FloatLimits value;
+		FloatLimits vector;
+	};
+
+	struct dvar_t
+	{
+		const char* name;
+		unsigned int flags;
+		char type;
+		bool modified;
+		DvarValue current;
+		DvarValue latched;
+		DvarValue reset;
+		DvarLimits domain;
+		bool(__cdecl* domainFunc)(dvar_t*, DvarValue);
+		dvar_t* hashNext;
+	};
+
 }
