@@ -3,6 +3,7 @@
 
 DLL_EXPORT void on_initialize_context(const char* script, chaiscript::ChaiScript* chai)
 {
+    callbacks::set_context(chai);
     callbacks::cleanup();
     chai->add(chaiscript::fun(callbacks::add_callback_startup_game), "add_callback_startup_game");
     chai->add(chaiscript::fun(callbacks::add_callback_player_connect), "add_callback_player_connect");
@@ -19,32 +20,6 @@ DLL_EXPORT void on_initialize_context(const char* script, chaiscript::ChaiScript
     chai->add(chaiscript::fun(&plutoscript::Vec3::y), "y");
     chai->add(chaiscript::fun(&plutoscript::Vec3::z), "z");
     chai->add(chaiscript::fun(&plutoscript::Vec3::operator std::string), "to_string");
-
-    /*auto m = chaiscript::ModulePtr(new chaiscript::Module());
-    
-    chaiscript::utility::add_class<callbacks::scr_means_of_death>(*m,
-        "MOD",
-        {
-            { callbacks::MOD_UNKNOWN, "MOD_UNKNOWN" },
-            { callbacks::MOD_PISTOL_BULLET, "MOD_PISTOL_BULLET" },
-            { callbacks::MOD_RIFLE_BULLET, "MOD_RIFLE_BULLET" },
-            { callbacks::MOD_EXPLOSIVE_BULLET, "MOD_EXPLOSIVE_BULLET" },
-            { callbacks::MOD_GRENADE, "MOD_GRENADE" },
-            { callbacks::MOD_GRENADE_SPLASH, "MOD_GRENADE_SPLASH" },
-            { callbacks::MOD_PROJECTILE, "MOD_PROJECTILE" },
-            { callbacks::MOD_PROJECTILE_SPLASH, "MOD_PROJECTILE_SPLASH" },
-            { callbacks::MOD_MELEE, "MOD_MELEE" },
-            { callbacks::MOD_HEAD_SHOT, "MOD_HEAD_SHOT" },
-            { callbacks::MOD_CRUSH, "MOD_CRUSH" },
-            { callbacks::MOD_FALLING, "MOD_FALLING" },
-            { callbacks::MOD_SUICIDE, "MOD_SUICIDE" },
-            { callbacks::MOD_TRIGGER_HURT, "MOD_TRIGGER_HURT" },
-            { callbacks::MOD_EXPLOSIVE, "MOD_EXPLOSIVE" },
-            { callbacks::MOD_IMPACT, "MOD_IMPACT" },
-        }
-    );
-
-    chai->add(m);*/
 }
 
 DLL_EXPORT void on_script_loaded(const char* script, chaiscript::ChaiScript* chai)

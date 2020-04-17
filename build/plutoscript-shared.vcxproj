@@ -25,6 +25,11 @@
     <ClInclude Include="..\source\shared\game\funcs.hpp" />
     <ClInclude Include="..\source\shared\game\structs.hpp" />
     <ClInclude Include="..\source\shared\game\vars.hpp" />
+    <ClInclude Include="..\source\shared\plutoscript\DamageFlags.hpp" />
+    <ClInclude Include="..\source\shared\plutoscript\HitLocation.hpp" />
+    <ClInclude Include="..\source\shared\plutoscript\MeansOfDeath.hpp" />
+    <ClInclude Include="..\source\shared\plutoscript\Vec3.hpp" />
+    <ClInclude Include="..\source\shared\plutoscript\Weapons.hpp" />
     <ClInclude Include="..\source\shared\stdinc.hpp" />
     <ClInclude Include="..\source\shared\util\hook.hpp" />
     <ClInclude Include="..\source\shared\util\memory.hpp" />

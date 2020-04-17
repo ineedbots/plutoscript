@@ -16,7 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\callbacks\callbacks.hpp" />
-    <ClInclude Include="..\source\callbacks\script_types.hpp" />
     <ClInclude Include="..\source\callbacks\stdinc.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

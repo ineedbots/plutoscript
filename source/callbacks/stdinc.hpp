@@ -8,5 +8,3 @@
 #else
 #define DEBUG_LOG(...)
 #endif // DEBUG
-
-#include "script_types.hpp"

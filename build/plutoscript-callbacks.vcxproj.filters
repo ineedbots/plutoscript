@@ -7,6 +7,5 @@
   <ItemGroup>
     <ClInclude Include="..\source\callbacks\callbacks.hpp" />
     <ClInclude Include="..\source\callbacks\stdinc.hpp" />
-    <ClInclude Include="..\source\callbacks\script_types.hpp" />
   </ItemGroup>
 </Project>

@@ -46,6 +46,21 @@
     <ClInclude Include="..\source\shared\chaiscript\chaiscript_threading.hpp">
       <Filter>chaiscript</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\shared\plutoscript\DamageFlags.hpp">
+      <Filter>plutoscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\shared\plutoscript\HitLocation.hpp">
+      <Filter>plutoscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\shared\plutoscript\MeansOfDeath.hpp">
+      <Filter>plutoscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\shared\plutoscript\Vec3.hpp">
+      <Filter>plutoscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\shared\plutoscript\Weapons.hpp">
+      <Filter>plutoscript</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="game">
@@ -56,6 +71,9 @@
     </Filter>
     <Filter Include="chaiscript">
       <UniqueIdentifier>{43a8d6ab-2d67-495a-b577-8f2ae3b7d58b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="plutoscript">
+      <UniqueIdentifier>{e733ac85-5af8-4c63-83d6-aa1c541e5eb0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

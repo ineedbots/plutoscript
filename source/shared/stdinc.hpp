@@ -27,3 +27,9 @@
 #include "game/structs.hpp"
 #include "game/vars.hpp"
 #include "game/funcs.hpp"
+
+// Plutoscript
+#include "plutoscript/DamageFlags.hpp"
+#include "plutoscript/HitLocation.hpp"
+#include "plutoscript/MeansOfDeath.hpp"
+#include "plutoscript/Vec3.hpp"
