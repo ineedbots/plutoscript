@@ -125,61 +125,104 @@ namespace game
 		entity_state_lerp_typeU u;
 	};*/
 
-	struct entity_state
+	struct entityState_s
 	{
 		int					number;
 		int					type;
 		//entity_state_lerp	lerp;
 	};
 
-	struct entity
+	struct gentity_s
 	{
-		entity_state		state;
+		entityState_s		state;
 		//entity_shared		shared;
 	}; // 0x1F8
 
 
-	enum hit_location
+	enum MeansOfDeath
 	{
-		HITLOC_NONE = 0x0,
-		HITLOC_HELMET = 0x1,
-		HITLOC_HEAD = 0x2,
-		HITLOC_NECK = 0x3,
-		HITLOC_TORSO_UPR = 0x4,
-		HITLOC_TORSO_LWR = 0x5,
-		HITLOC_R_ARM_UPR = 0x6,
-		HITLOC_L_ARM_UPR = 0x7,
-		HITLOC_R_ARM_LWR = 0x8,
-		HITLOC_L_ARM_LWR = 0x9,
-		HITLOC_R_HAND = 0xA,
-		HITLOC_L_HAND = 0xB,
-		HITLOC_R_LEG_UPR = 0xC,
-		HITLOC_L_LEG_UPR = 0xD,
-		HITLOC_R_LEG_LWR = 0xE,
-		HITLOC_L_LEG_LWR = 0xF,
-		HITLOC_R_FOOT = 0x10,
-		HITLOC_L_FOOT = 0x11,
-		HITLOC_GUN = 0x12,
-		HITLOC_NUM = 0x13,
+		MOD_UNKNOWN = 0,
+		MOD_PISTOL_BULLET = 1,
+		MOD_RIFLE_BULLET = 2,
+		MOD_EXPLOSIVE_BULLET = 3,
+		MOD_GRENADE = 4,
+		MOD_GRENADE_SPLASH = 5,
+		MOD_PROJECTILE = 6,
+		MOD_PROJECTILE_SPLASH = 7,
+		MOD_MELEE = 8,
+		MOD_HEAD_SHOT = 9,
+		MOD_CRUSH = 10,
+		MOD_FALLING = 11,
+		MOD_SUICIDE = 12,
+		MOD_TRIGGER_HURT = 13,
+		MOD_EXPLOSIVE = 14,
+		MOD_IMPACT = 15,
+		MOD_NUM = 16
+	};
+
+	enum HitLocation
+	{
+		HITLOC_NONE = 0,
+		HITLOC_HELMET = 1,
+		HITLOC_HEAD = 2,
+		HITLOC_NECK = 3,
+		HITLOC_TORSO_UPR = 4,
+		HITLOC_TORSO_LWR = 5,
+		HITLOC_R_ARM_UPR = 6,
+		HITLOC_L_ARM_UPR = 7,
+		HITLOC_R_ARM_LWR = 8,
+		HITLOC_L_ARM_LWR = 9,
+		HITLOC_R_HAND = 10,
+		HITLOC_L_HAND = 11,
+		HITLOC_R_LEG_UPR = 12,
+		HITLOC_L_LEG_UPR = 13,
+		HITLOC_R_LEG_LWR = 14,
+		HITLOC_L_LEG_LWR = 15,
+		HITLOC_R_FOOT = 16,
+		HITLOC_L_FOOT = 17,
+		HITLOC_GUN = 18,
+		HITLOC_NUM = 19,
+	};
+
+	enum DamageFlags
+	{
+		DFLAGS_RADIUS = 1,							// damage was indirect
+		DFLAGS_NO_ARMOR = 2,						// armor does not protect from this damage
+		DFLAGS_NO_KNOCKBACK = 4,					// do not affect velocity, just view angles
+		DFLAGS_PENETRATION = 8,						// damage occurred after one or more penetrations
+		DFLAGS_STUN = 16,							// non-lethal
+		DFLAGS_SHIELD_EXPLOSIVE_IMPACT = 32,		// missile impacted on the front of the victim's shield
+		DFLAGS_SHIELD_EXPLOSIVE_IMPACT_HUGE = 64,	//   ...and was from a projectile with "Big Explosion" checked on.
+		DFLAGS_SHIELD_EXPLOSIVE_SPLASH = 128,		// explosive splash, somewhat deflected by the victim's shield
+
+		// script-defined:
+		DFLAGS_NO_TEAM_PROTECTION = 256,
+		DFLAGS_NO_PROTECTION = 512,
+		DFLAGS_PASSTHRU = 1024,
 	};
 
 	//------------------------ Weapons
 
+	struct Weapon
+	{
+		unsigned int data;
+	};
+
 	enum weapClass_t
 	{
-		WEAPCLASS_RIFLE = 0x0,
-		WEAPCLASS_SNIPER = 0x1,
-		WEAPCLASS_MG = 0x2,
-		WEAPCLASS_SMG = 0x3,
-		WEAPCLASS_SPREAD = 0x4,
-		WEAPCLASS_PISTOL = 0x5,
-		WEAPCLASS_GRENADE = 0x6,
-		WEAPCLASS_ROCKETLAUNCHER = 0x7,
-		WEAPCLASS_TURRET = 0x8,
-		WEAPCLASS_THROWINGKNIFE = 0x9,
-		WEAPCLASS_NON_PLAYER = 0xA,
-		WEAPCLASS_ITEM = 0xB,
-		WEAPCLASS_NUM = 0xC,
+		WEAPCLASS_RIFLE = 0,
+		WEAPCLASS_SNIPER = 1,
+		WEAPCLASS_MG = 2,
+		WEAPCLASS_SMG = 3,
+		WEAPCLASS_SPREAD = 4,
+		WEAPCLASS_PISTOL = 5,
+		WEAPCLASS_GRENADE = 6,
+		WEAPCLASS_ROCKETLAUNCHER = 7,
+		WEAPCLASS_TURRET = 8,
+		WEAPCLASS_THROWINGKNIFE = 9,
+		WEAPCLASS_NON_PLAYER = 10,
+		WEAPCLASS_ITEM = 11,
+		WEAPCLASS_NUM = 12,
 	};
 
 

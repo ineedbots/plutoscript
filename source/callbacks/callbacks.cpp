@@ -5,9 +5,6 @@ namespace callbacks
 {
 	chaiscript::ChaiScript* chai;
 
-	std::map<int, std::string> mod_names;
-	std::map<int, std::string> hitloc_names;
-
 	std::vector<startup_gametype_calltype>	startup_game_callbacks;
 	std::vector<player_connect_calltype>	player_connect_callbacks;
 	std::vector<player_disconnect_calltype>	player_disconnect_callbacks;
@@ -39,18 +36,9 @@ namespace callbacks
 		player_killed_callbacks.push_back(callback);
 	}
 
-	void cleanup()
-	{
-		startup_game_callbacks.clear();
-		player_connect_callbacks.clear();
-		player_disconnect_callbacks.clear();
-		player_damage_callbacks.clear();
-		player_killed_callbacks.clear();
-	}
+	Scr_StartupGameType_t Scr_StartupGameType_;
 
-	game::Scr_StartupGameType_t Scr_StartupGameType_;
-
-	void Scr_StartupGameType()
+	void Scr_StartupGameType_stub()
 	{
 		for (auto& callback : startup_game_callbacks)
 		{
@@ -60,12 +48,11 @@ namespace callbacks
 		return Scr_StartupGameType_();
 	}
 
-	game::Scr_PlayerConnect_t Scr_PlayerConnect_;
+	Scr_PlayerConnect_t Scr_PlayerConnect_;
 
-	void Scr_PlayerConnect(game::entity* self)
+	void Scr_PlayerConnect_stub(gentity_s* self)
 	{
-		const std::string entnum = std::to_string(self->state.number);
-		chaiscript::Boxed_Value self_ = chai->eval("level.getEntByNum(" + entnum + ")");
+		chaiscript::Boxed_Value self_ = chai->eval("level.getEntByNum(" + std::to_string(self->state.number) + ")");
 
 		for (auto& callback : player_connect_callbacks)
 		{
@@ -75,9 +62,9 @@ namespace callbacks
 		return Scr_PlayerConnect_(self);
 	}
 
-	game::Scr_PlayerDisconnect_t Scr_PlayerDisconnect_;
+	Scr_PlayerDisconnect_t Scr_PlayerDisconnect_;
 
-	void Scr_PlayerDisconnect(game::entity* self)
+	void Scr_PlayerDisconnect_stub(gentity_s* self)
 	{
 		chaiscript::Boxed_Value self_ = chai->eval("level.getEntByNum(" + std::to_string(self->state.number) + ")");
 
@@ -89,29 +76,17 @@ namespace callbacks
 		return Scr_PlayerDisconnect_(self);
 	}
 
-	game::Scr_PlayerDamage_t Scr_PlayerDamage_;
+	Scr_PlayerDamage_t Scr_PlayerDamage_;
 
-	void Scr_PlayerDamage(game::entity* self, game::entity* inflictor, game::entity* attacker, int damage, int dflags, int meansOfDeath, int weapon, bool isAlternate, const float* vDir, game::hit_location hitLoc, int timeOffset)
+	void Scr_PlayerDamage_stub(gentity_s* self, gentity_s* inflictor, gentity_s* attacker, int damage,  int dflags, MeansOfDeath meansOfDeath, Weapon weapon, bool isAlternate, const float* vDir, HitLocation hitLoc, int timeOffset)
 	{
 		chaiscript::Boxed_Value self_ = chaiscript::var(self->state.number);
 		chaiscript::Boxed_Value inflictor_ = inflictor != 0 ? chai->eval("level.getEntByNum(" + std::to_string(inflictor->state.number) + ")") : chaiscript::Boxed_Value{};
 		chaiscript::Boxed_Value attacker_ = attacker != 0 ? chai->eval("level.getEntByNum(" + std::to_string(attacker->state.number) + ")") : chaiscript::Boxed_Value{};
+		
+		std::string mod_ = plutoscript::GetMeansOfDeathName(meansOfDeath);
+		std::string weapon_ = plutoscript::GetWeaponName(weapon, isAlternate);
 
-		std::string mod_ = meansOfDeath < 15 ? mod_names[meansOfDeath] : "badMOD";
-
-		char wep_name[1024];
-		char* weeap;
-		if (isAlternate)
-		{
-			wep_name[0] = 'a'; wep_name[1] = 'l'; wep_name[2] = 't'; wep_name[3] = '_';
-			weeap = game::BG_GetWeaponNameComplete(weapon, 0, &wep_name[4], 1020);
-		}
-		else
-		{
-			weeap = game::BG_GetWeaponNameComplete(weapon, 0, wep_name, 1024);
-		}
-
-		std::string weapon_ = weeap;
 		chaiscript::Boxed_Value dir_;
 		std::vector<chaiscript::Boxed_Value> values;
 		if (vDir)
@@ -126,7 +101,7 @@ namespace callbacks
 			dir_ = chaiscript::Boxed_Value{};
 		}
 
-		std::string hitloc_ = hitloc_names[hitLoc];
+		std::string hitloc_ = plutoscript::GetHitLocationName(hitLoc);
 
 		for (auto& callback : player_damage_callbacks)
 		{
@@ -138,28 +113,15 @@ namespace callbacks
 		return Scr_PlayerDamage_(self, inflictor, attacker, damage, dflags, meansOfDeath, weapon, isAlternate, vDir, hitLoc, timeOffset);
 	}
 
-	game::Scr_PlayerKilled_t Scr_PlayerKilled_;
+	Scr_PlayerKilled_t Scr_PlayerKilled_;
 
-	void Scr_PlayerKilled(game::entity* self, game::entity* inflictor, game::entity* attacker, int damage, int meansOfDeath, int weapon, bool isAlternate, const float* vDir, game::hit_location hitLoc, int psTimeOffset, int deathAnimDuration)
+	void Scr_PlayerKilled_stub(gentity_s* self, gentity_s* inflictor, gentity_s* attacker, int damage, MeansOfDeath meansOfDeath, Weapon weapon, bool isAlternate, const float* vDir, HitLocation hitLoc, int psTimeOffset, int deathAnimDuration)
 	{
 		chaiscript::Boxed_Value self_ = self != 0 ? chai->eval("level.getEntByNum(" + std::to_string(self->state.number) + ")") : chaiscript::Boxed_Value{};
 		chaiscript::Boxed_Value inflictor_ = inflictor != 0 ? chai->eval("level.getEntByNum(" + std::to_string(inflictor->state.number) + ")") : chaiscript::Boxed_Value{};
 		chaiscript::Boxed_Value attacker_ = attacker != 0 ? chai->eval("level.getEntByNum(" + std::to_string(attacker->state.number) + ")") : chaiscript::Boxed_Value{};
-		std::string mod_ = meansOfDeath < 15 ? mod_names[meansOfDeath] : "badMOD";
-
-		char wep_name[1024];
-		char* weeap;
-		if (isAlternate)
-		{
-			wep_name[0] = 'a'; wep_name[1] = 'l'; wep_name[2] = 't'; wep_name[3] = '_';
-			weeap = game::BG_GetWeaponNameComplete(weapon, 0, &wep_name[4], 1020);
-		}
-		else
-		{
-			weeap = game::BG_GetWeaponNameComplete(weapon, 0, wep_name, 1024);
-		}
-
-		std::string weapon_ = weeap;
+		std::string mod_ = plutoscript::GetMeansOfDeathName(meansOfDeath);
+		std::string weapon_ = plutoscript::GetWeaponName(weapon, isAlternate);
 
 		chaiscript::Boxed_Value dir_;
 		std::vector<chaiscript::Boxed_Value> values;
@@ -175,7 +137,7 @@ namespace callbacks
 			dir_ = chaiscript::Boxed_Value{};
 		}
 
-		std::string hitloc_ = hitloc_names[hitLoc];
+		std::string hitloc_ = plutoscript::GetHitLocationName(hitLoc);
 
 		for (auto& callback : player_killed_callbacks)
 		{
@@ -190,49 +152,21 @@ namespace callbacks
 		chai = c;
 	}
 
+	void cleanup()
+	{
+		startup_game_callbacks.clear();
+		player_connect_callbacks.clear();
+		player_disconnect_callbacks.clear();
+		player_damage_callbacks.clear();
+		player_killed_callbacks.clear();
+	}
+
 	void init()
 	{
-		Scr_StartupGameType_ =	util::hook::detour(0x527B10, Scr_StartupGameType, 5);
-		Scr_PlayerConnect_ =	util::hook::detour(0x527B30, Scr_PlayerConnect, 5);
-		Scr_PlayerDisconnect_ = util::hook::detour(0x527B60, Scr_PlayerDisconnect, 5);
-		Scr_PlayerDamage_ =		util::hook::detour(0x527B90, Scr_PlayerDamage, 10);
-		Scr_PlayerKilled_ =		util::hook::detour(0x527CF0, Scr_PlayerKilled, 10);
-
-		mod_names[plutoscript::MOD_UNKNOWN] = "MOD_UNKNOWN";
-		mod_names[plutoscript::MOD_PISTOL_BULLET] = "MOD_PISTOL_BULLET";
-		mod_names[plutoscript::MOD_RIFLE_BULLET] = "MOD_RIFLE_BULLET";
-		mod_names[plutoscript::MOD_EXPLOSIVE_BULLET] = "MOD_EXPLOSIVE_BULLET";
-		mod_names[plutoscript::MOD_GRENADE] = "MOD_GRENADE";
-		mod_names[plutoscript::MOD_GRENADE_SPLASH] = "MOD_GRENADE_SPLASH";
-		mod_names[plutoscript::MOD_PROJECTILE] = "MOD_PROJECTILE";
-		mod_names[plutoscript::MOD_PROJECTILE_SPLASH] = "MOD_PROJECTILE_SPLASH";
-		mod_names[plutoscript::MOD_MELEE] = "MOD_MELEE";
-		mod_names[plutoscript::MOD_HEAD_SHOT] = "MOD_HEAD_SHOT";
-		mod_names[plutoscript::MOD_CRUSH] = "MOD_CRUSH";
-		mod_names[plutoscript::MOD_FALLING] = "MOD_FALLING";
-		mod_names[plutoscript::MOD_SUICIDE] = "MOD_SUICIDE";
-		mod_names[plutoscript::MOD_TRIGGER_HURT] = "MOD_TRIGGER_HURT";
-		mod_names[plutoscript::MOD_EXPLOSIVE] = "MOD_EXPLOSIVE";
-		mod_names[plutoscript::MOD_IMPACT] = "MOD_IMPACT";
-
-		hitloc_names[plutoscript::HITLOC_NONE] = "none";
-		hitloc_names[plutoscript::HITLOC_HELMET] = "helmet";
-		hitloc_names[plutoscript::HITLOC_HEAD] = "head";
-		hitloc_names[plutoscript::HITLOC_NECK] = "neck";
-		hitloc_names[plutoscript::HITLOC_TORSO_UPR] = "torso_upper";
-		hitloc_names[plutoscript::HITLOC_TORSO_LWR] = "torso_lower";
-		hitloc_names[plutoscript::HITLOC_R_ARM_UPR] = "right_arm_upper";
-		hitloc_names[plutoscript::HITLOC_L_ARM_UPR] = "left_arm_upper";
-		hitloc_names[plutoscript::HITLOC_R_ARM_LWR] = "right_arm_lower";
-		hitloc_names[plutoscript::HITLOC_L_ARM_LWR] = "left_arm_lower";
-		hitloc_names[plutoscript::HITLOC_R_HAND] = "right_hand";
-		hitloc_names[plutoscript::HITLOC_L_HAND] = "left_hand";
-		hitloc_names[plutoscript::HITLOC_R_LEG_UPR] = "right_leg_upper";
-		hitloc_names[plutoscript::HITLOC_L_LEG_UPR] = "left_leg_upper";
-		hitloc_names[plutoscript::HITLOC_R_LEG_LWR] = "right_leg_lower";
-		hitloc_names[plutoscript::HITLOC_L_LEG_LWR] = "left_leg_lower";
-		hitloc_names[plutoscript::HITLOC_R_FOOT] = "right_foot";
-		hitloc_names[plutoscript::HITLOC_L_FOOT] = "left_foot";
-		hitloc_names[plutoscript::HITLOC_GUN] = "shield";
+		Scr_StartupGameType_ =	util::hook::detour(Scr_StartupGameType, Scr_StartupGameType_stub, 5);
+		Scr_PlayerConnect_ =	util::hook::detour(Scr_PlayerConnect, Scr_PlayerConnect_stub, 5);
+		Scr_PlayerDisconnect_ = util::hook::detour(Scr_PlayerDisconnect, Scr_PlayerDisconnect_stub, 5);
+		Scr_PlayerDamage_ =		util::hook::detour(Scr_PlayerDamage, Scr_PlayerDamage_stub, 10);
+		Scr_PlayerKilled_ =		util::hook::detour(Scr_PlayerKilled, Scr_PlayerKilled_stub, 10);
 	}
 }

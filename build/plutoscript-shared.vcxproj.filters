@@ -13,6 +13,9 @@
     <ClCompile Include="..\source\shared\game\vars.cpp">
       <Filter>game</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\shared\plutoscript\plutoscript.cpp">
+      <Filter>plutoscript</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\shared\stdinc.hpp" />
@@ -46,19 +49,10 @@
     <ClInclude Include="..\source\shared\chaiscript\chaiscript_threading.hpp">
       <Filter>chaiscript</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\shared\plutoscript\DamageFlags.hpp">
-      <Filter>plutoscript</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\shared\plutoscript\HitLocation.hpp">
-      <Filter>plutoscript</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\shared\plutoscript\MeansOfDeath.hpp">
-      <Filter>plutoscript</Filter>
-    </ClInclude>
     <ClInclude Include="..\source\shared\plutoscript\Vec3.hpp">
       <Filter>plutoscript</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\shared\plutoscript\Weapons.hpp">
+    <ClInclude Include="..\source\shared\plutoscript\plutoscript.hpp">
       <Filter>plutoscript</Filter>
     </ClInclude>
   </ItemGroup>
