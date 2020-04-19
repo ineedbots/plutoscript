@@ -78,14 +78,28 @@ namespace callbacks
 
 	Scr_PlayerDamage_t Scr_PlayerDamage_;
 
-	void Scr_PlayerDamage_stub(gentity_s* self, gentity_s* inflictor, gentity_s* attacker, int damage,  int dflags, MeansOfDeath meansOfDeath, Weapon weapon, bool isAlternate, const float* vDir, HitLocation hitLoc, int timeOffset)
+	void Scr_PlayerDamage_stub(gentity_s* self, gentity_s* inflictor, gentity_s* attacker, int damage,  int dflags, MeansOfDeath meansOfDeath, Weapon weapon, bool isAlternate, const float* vPoint, const float* vDir, HitLocation hitLoc, int timeOffset)
 	{
-		chaiscript::Boxed_Value self_ = chaiscript::var(self->state.number);
+		chaiscript::Boxed_Value self_ = chai->eval("level.getEntByNum(" + std::to_string(self->state.number) + ")");
 		chaiscript::Boxed_Value inflictor_ = inflictor != 0 ? chai->eval("level.getEntByNum(" + std::to_string(inflictor->state.number) + ")") : chaiscript::Boxed_Value{};
 		chaiscript::Boxed_Value attacker_ = attacker != 0 ? chai->eval("level.getEntByNum(" + std::to_string(attacker->state.number) + ")") : chaiscript::Boxed_Value{};
 		
 		std::string mod_ = plutoscript::GetMeansOfDeathName(meansOfDeath);
 		std::string weapon_ = plutoscript::GetWeaponName(weapon, isAlternate);
+
+		chaiscript::Boxed_Value point_;
+		std::vector<chaiscript::Boxed_Value> pointvals;
+		if (vPoint)
+		{
+			pointvals.push_back(chaiscript::var(vPoint[0]));
+			pointvals.push_back(chaiscript::var(vPoint[1]));
+			pointvals.push_back(chaiscript::var(vPoint[2]));
+			point_ = chaiscript::var(pointvals);
+		}
+		else
+		{
+			point_ = chaiscript::Boxed_Value{};
+		}
 
 		chaiscript::Boxed_Value dir_;
 		std::vector<chaiscript::Boxed_Value> values;
@@ -105,19 +119,19 @@ namespace callbacks
 
 		for (auto& callback : player_damage_callbacks)
 		{
-			callback(self_, inflictor_, attacker_, damage, dflags, mod_, weapon_, dir_, hitloc_);
+			callback(self_, inflictor_, attacker_, damage, dflags, mod_, weapon_, point_, dir_, hitloc_, timeOffset);
 		}
 
 		if (damage == 0) return;
 
-		return Scr_PlayerDamage_(self, inflictor, attacker, damage, dflags, meansOfDeath, weapon, isAlternate, vDir, hitLoc, timeOffset);
+		return Scr_PlayerDamage_(self, inflictor, attacker, damage, dflags, meansOfDeath, weapon, isAlternate, vPoint, vDir, hitLoc, timeOffset);
 	}
 
 	Scr_PlayerKilled_t Scr_PlayerKilled_;
 
 	void Scr_PlayerKilled_stub(gentity_s* self, gentity_s* inflictor, gentity_s* attacker, int damage, MeansOfDeath meansOfDeath, Weapon weapon, bool isAlternate, const float* vDir, HitLocation hitLoc, int psTimeOffset, int deathAnimDuration)
 	{
-		chaiscript::Boxed_Value self_ = self != 0 ? chai->eval("level.getEntByNum(" + std::to_string(self->state.number) + ")") : chaiscript::Boxed_Value{};
+		chaiscript::Boxed_Value self_ = chai->eval("level.getEntByNum(" + std::to_string(self->state.number) + ")");
 		chaiscript::Boxed_Value inflictor_ = inflictor != 0 ? chai->eval("level.getEntByNum(" + std::to_string(inflictor->state.number) + ")") : chaiscript::Boxed_Value{};
 		chaiscript::Boxed_Value attacker_ = attacker != 0 ? chai->eval("level.getEntByNum(" + std::to_string(attacker->state.number) + ")") : chaiscript::Boxed_Value{};
 		std::string mod_ = plutoscript::GetMeansOfDeathName(meansOfDeath);
@@ -141,7 +155,7 @@ namespace callbacks
 
 		for (auto& callback : player_killed_callbacks)
 		{
-			callback(self_, inflictor_, attacker_, damage, mod_, weapon_, dir_, hitloc_);
+			callback(self_, inflictor_, attacker_, damage, mod_, weapon_, dir_, hitloc_, psTimeOffset, deathAnimDuration);
 		}
 		
 		return Scr_PlayerKilled_(self, inflictor, attacker, damage, meansOfDeath, weapon, isAlternate, vDir, hitLoc, psTimeOffset, deathAnimDuration);

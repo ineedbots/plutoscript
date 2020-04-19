@@ -2,6 +2,30 @@
 
 namespace game
 {
+	// Dvars
+
+	// Cmd
+	typedef void(__cdecl* Cmd_RegisterNotification_t)(const int clientNum, const char* commandString, const char* notifyString);
+	extern Cmd_RegisterNotification_t Cmd_RegisterNotification;
+
+	// Script
+	typedef void(__cdecl* Scr_AddInt_t)(int value);
+	extern Scr_AddInt_t Scr_AddInt;
+	typedef void(__cdecl* Scr_AddConstString_t)(scr_string_t value);
+	extern Scr_AddConstString_t Scr_AddConstString;
+	typedef void(__cdecl* Scr_AddVector_t)(const float* value);
+	extern Scr_AddVector_t Scr_AddVector;
+	typedef void(__cdecl* Scr_AddUndefined_t)();
+	extern Scr_AddUndefined_t Scr_AddUndefined;
+	typedef void(__cdecl* Scr_AddString_t)(const char* value);
+	extern Scr_AddString_t Scr_AddString;
+	typedef void(__cdecl* Scr_AddEntity_t)(gentity_s* ent);
+	extern Scr_AddEntity_t Scr_AddEntity;
+	typedef __int16(__cdecl* Scr_ExecEntThread_t)(gentity_s* ent, int handle, unsigned int paramcount);
+	extern Scr_ExecEntThread_t Scr_ExecEntThread;
+	typedef void(__cdecl* Scr_FreeThread_t)(unsigned __int16 handle);
+	extern Scr_FreeThread_t Scr_FreeThread;
+
 	typedef void(__cdecl* Scr_LoadLevel_t)();
 	extern Scr_LoadLevel_t Scr_LoadLevel;
 	typedef void(__cdecl* Scr_LoadGameType_t)();
@@ -12,7 +36,7 @@ namespace game
 	extern Scr_PlayerConnect_t Scr_PlayerConnect;
 	typedef void(__cdecl* Scr_PlayerDisconnect_t)(gentity_s*);
 	extern Scr_PlayerDisconnect_t Scr_PlayerDisconnect;
-	typedef void(__cdecl* Scr_PlayerDamage_t)(gentity_s*, gentity_s*, gentity_s*, int, int, MeansOfDeath, Weapon, bool, const float*, HitLocation, int);
+	typedef void(__cdecl* Scr_PlayerDamage_t)(gentity_s*, gentity_s*, gentity_s*, int, int, MeansOfDeath, Weapon, bool, const float*, const float*, HitLocation, int);
 	extern Scr_PlayerDamage_t Scr_PlayerDamage;
 	typedef void(__cdecl* Scr_PlayerKilled_t)(gentity_s*, gentity_s*, gentity_s*, int, MeansOfDeath, Weapon, bool, const float*, HitLocation, int, int);
 	extern Scr_PlayerKilled_t Scr_PlayerKilled;
@@ -27,4 +51,8 @@ namespace game
 
 	typedef unsigned int(__cdecl* Scr_GetEntityId_t)(int, unsigned int);
 	extern Scr_GetEntityId_t Scr_GetEntityId;
+
+
+	typedef scr_string_t(__cdecl* G_GetHitLocationString_t)(HitLocation hitLoc);
+	extern G_GetHitLocationString_t G_GetHitLocationString;
 }

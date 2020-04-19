@@ -8,7 +8,11 @@ Static library included in all plugins to provide game data definitions and basi
 
 ## plutoscript-callbacks
 
-Killcams are broken due to a bug in Scr_PlayerDamage.
+Update:
+- Killcams working
+
+Known Bugs:
+- Dont use entity fields at Scr_PlayerDamage, spaming entity field calls in a short period of time makes chai crash.
 
 chaiscript code:
 ``` cpp
@@ -32,9 +36,9 @@ Params:
 	ePlayer: 	entity
 	return: 	void
 */
-def onPlayerConnected(ePlayer)
+def onPlayerConnected(args)
 {
-
+	var ePlayer = args[0];
 }
 
 /*
@@ -42,9 +46,9 @@ Params:
 	ePlayer: 	entity
 	return: 	void
 */
-def onPlayerSpawned(ePlayer)
+def onPlayerSpawned(args)
 {
-
+	var ePlayer = args[0];
 }
 
 /*
@@ -59,35 +63,39 @@ def onPlayerDisconnect(ePlayer)
 
 /*
 Params:
-	ePlayer: 	entity
+	ePlayer:		entity
 	eInflictor: 	entity
-	eAttacker: 	entity
-	iDamage:	integer
-	iDflags:	integer
+	eAttacker:		entity
+	iDamage:		integer
+	iDflags:		integer
 	sMeansOfDeath:	string
-	sWeapon:	string
-	vDir:		vector
-	sHitloc:	string
-	return: 	void
+	sWeapon:		string
+	vPoint:			vector
+	vDir:			vector
+	sHitloc:		string
+	iTimeOffset:	integer
+	return:			void
 */
-def onPlayerDamage(ePlayer, eInflictor, eAttacker, iDamage, iDflags, sMeansOfDeath, sWeapon, vDir, sHitloc)
+def onPlayerDamage(ePlayer, eInflictor, eAttacker, iDamage, iDflags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitloc, iTimeOffset)
 {
 
 }
 
 /*
 Params:
-	ePlayer: 	entity
+	ePlayer:		entity
 	eInflictor: 	entity
-	eAttacker: 	entity
-	iDamage:	integer
+	eAttacker:		entity
+	iDamage:		integer
 	sMeansOfDeath:	string
-	sWeapon:	string
-	vDir:		vector
-	sHitloc:	string
-	return: 	void
+	sWeapon:		string
+	vDir:			vector
+	sHitloc:		string
+	iTimeOffset:	integer
+	iDeathAnimDuration: integer
+	return:			void
 */
-def onPlayerKilled(ePlayer, eInflictor, eAttacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitloc)
+def onPlayerKilled(ePlayer, eInflictor, eAttacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitloc, , iTimeOffset, iDeathAnimDuration)
 {
 
 }
@@ -106,4 +114,4 @@ Add support to handle server & client commands.
 
 ## plutoscript-snipers
 
-C++ patched Scr_PlayerDamage (sniper only) to bypass killcam bug
+C++ plugin for TS servers.

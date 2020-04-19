@@ -1,5 +1,5 @@
 #include "../stdinc.hpp"
-#include "script.hpp"
+#include "plutoscript.hpp"
 
 namespace plutoscript
 {

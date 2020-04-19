@@ -46,10 +46,15 @@ namespace game
 
 	//------------------------ Entity
 
-	/*struct entity_shared
+	union EntityStateIndexUnion
 	{
-
+		int brushModel;
+		int triggerModel;
+		int xmodel;
+		int primaryLight;
 	};
+
+	/*
 
 
 	struct $39EF277EA8613772F6FC6094760A0E98
@@ -129,15 +134,33 @@ namespace game
 	{
 		int					number;
 		int					type;
-		//entity_state_lerp	lerp;
+		char				lerp[0x68]; //struct LerpEntityState 0x68
+		int					staticState; // union StaticEntityStateTypeUnion 0x4
+		int					time2;
+		int					otherEntityNum;
+		int					attackerEntityNum;
+		int					groundEntityNum;
+		int					loopSound;
+		int					surfType;
+		EntityStateIndexUnion index;
+		int					clientNum;
+		// clientnum   // 144 0x90
 	};
 
 	struct gentity_s
 	{
 		entityState_s		state;
 		//entity_shared		shared;
+		//gclient_s			client; // 344 [0x158]
 	}; // 0x1F8
 
+	/*
+	player stance
+		"prone"
+		"crouch"
+		"stand"
+	
+	*/
 
 	enum MeansOfDeath
 	{
