@@ -16,6 +16,7 @@
     <ClCompile Include="..\source\shared\plutoscript\plutoscript.cpp" />
     <ClCompile Include="..\source\shared\util\hook.cpp" />
     <ClCompile Include="..\source\shared\util\memory.cpp" />
+    <ClCompile Include="..\source\shared\util\string.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\shared\chaiscript\chaiscript.hpp" />
@@ -31,6 +32,7 @@
     <ClInclude Include="..\source\shared\stdinc.hpp" />
     <ClInclude Include="..\source\shared\util\hook.hpp" />
     <ClInclude Include="..\source\shared\util\memory.hpp" />
+    <ClInclude Include="..\source\shared\util\string.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

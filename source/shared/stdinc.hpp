@@ -22,6 +22,7 @@
 // Utils
 #include "util/memory.hpp"
 #include "util/hook.hpp"
+#include "util/string.hpp"
 
 // Game
 #include "game/structs.hpp"

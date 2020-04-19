@@ -16,6 +16,9 @@
     <ClCompile Include="..\source\shared\plutoscript\plutoscript.cpp">
       <Filter>plutoscript</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\shared\util\string.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\shared\stdinc.hpp" />
@@ -54,6 +57,9 @@
     </ClInclude>
     <ClInclude Include="..\source\shared\plutoscript\plutoscript.hpp">
       <Filter>plutoscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\shared\util\string.hpp">
+      <Filter>util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

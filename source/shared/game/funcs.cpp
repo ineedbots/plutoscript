@@ -4,8 +4,14 @@ namespace game
 {
 	// Dvars
 
+	// Cbuf
+	Cbuf_AddText_t Cbuf_AddText = Cbuf_AddText_t(0x545680);
+
 	// Cmd
 	Cmd_RegisterNotification_t Cmd_RegisterNotification = Cmd_RegisterNotification_t(0x5461C0);
+
+	// Server
+	SV_GameSendServerCommand_t SV_GameSendServerCommand = SV_GameSendServerCommand_t(0x573220);
 
 	// Script
 	Scr_AddInt_t Scr_AddInt = Scr_AddInt_t(0x56AA20);

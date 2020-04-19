@@ -4,9 +4,17 @@ namespace game
 {
 	// Dvars
 
+	// Cbuf
+	typedef void(__cdecl* Cbuf_AddText_t)(LocalClientNum_t localClientNum, const char* text);
+	extern Cbuf_AddText_t Cbuf_AddText;
+
 	// Cmd
 	typedef void(__cdecl* Cmd_RegisterNotification_t)(const int clientNum, const char* commandString, const char* notifyString);
 	extern Cmd_RegisterNotification_t Cmd_RegisterNotification;
+
+	// Server
+	typedef void(__cdecl* SV_GameSendServerCommand_t)(int clientNum, svscmd_type type, const char* text);
+	extern SV_GameSendServerCommand_t SV_GameSendServerCommand;
 
 	// Script
 	typedef void(__cdecl* Scr_AddInt_t)(int value);
