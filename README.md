@@ -95,7 +95,7 @@ Params:
 	iDeathAnimDuration: integer
 	return:			void
 */
-def onPlayerKilled(ePlayer, eInflictor, eAttacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitloc, , iTimeOffset, iDeathAnimDuration)
+def onPlayerKilled(ePlayer, eInflictor, eAttacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitloc, iTimeOffset, iDeathAnimDuration)
 {
 
 }
