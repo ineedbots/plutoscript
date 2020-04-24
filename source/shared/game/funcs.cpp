@@ -12,8 +12,12 @@ namespace game
 
 	// Server
 	SV_GameSendServerCommand_t SV_GameSendServerCommand = SV_GameSendServerCommand_t(0x573220);
+	ClientCommand_t ClientCommand = ClientCommand_t(0x502CB0);
+	SV_Cmd_ArgvBuffer_t SV_Cmd_ArgvBuffer = SV_Cmd_ArgvBuffer_t(0x5459F0);
 
 	// Script
+	SL_ConvertToString_t SL_ConvertToString = SL_ConvertToString_t(0x564270);
+	VM_Notify_t VM_Notify = VM_Notify_t(0x569720);
 	Scr_AddInt_t Scr_AddInt = Scr_AddInt_t(0x56AA20);
 	Scr_AddConstString_t Scr_AddConstString = Scr_AddConstString_t(0x56ACC0);
 	Scr_AddVector_t Scr_AddVector = Scr_AddVector_t(0x56AD20);
@@ -31,6 +35,8 @@ namespace game
 	Scr_PlayerDamage_t Scr_PlayerDamage = Scr_PlayerDamage_t(0x527B90);
 	Scr_PlayerKilled_t Scr_PlayerKilled = Scr_PlayerKilled_t(0x527CF0);
 	Scr_GetEntityId_t Scr_GetEntityId = Scr_GetEntityId_t(0x567D80);
+
+	PlayerCmd_finishPlayerDamage_t PlayerCmd_finishPlayerDamage = PlayerCmd_finishPlayerDamage_t(0x500960);
 
 	// Weapon
 	BG_GetWeaponNameComplete_t  BG_GetWeaponNameComplete = BG_GetWeaponNameComplete_t(0x42F760);

@@ -43,6 +43,34 @@ namespace game
 		SCRIPT_END = 8,
 	};
 
+	struct VariableStackBuffer
+	{
+		const char* pos;
+		unsigned __int16 size;
+		unsigned __int16 bufLen;
+		unsigned __int16 localId;
+		char time;
+		char buf[1];
+	};
+
+	union VariableUnion
+	{
+		int intValue;
+		float floatValue;
+		unsigned int stringValue;
+		const float* vectorValue;
+		const char* codePosValue;
+		unsigned int pointerValue;
+		VariableStackBuffer* stackValue;
+		unsigned int entityId;
+	};
+
+	struct VariableValue
+	{
+		VariableUnion u;
+		scriptType_e type;
+	};
+
 
 	//------------------------ Entity
 
@@ -153,6 +181,7 @@ namespace game
 		//entity_shared		shared;
 		//gclient_s			client; // 344 [0x158]
 	}; // 0x1F8
+
 
 	/*
 	player stance
@@ -288,6 +317,38 @@ namespace game
 
 
 	//------------------------ Dvars
+	enum DvarFlags
+	{
+		DVAR_FLAG_NONE = 0,
+		DVAR_FLAG_ARCHIVE = 1,			// config saved
+		DVAR_FLAG_LATCHED = 2,			// read only
+		DVAR_FLAG_CHEAT = 4,			// cheat protected
+		DVAR_FLAG_REPLICATED = 8,		// send to client
+		DVAR_FLAG_UNK1 = 16,
+		DVAR_FLAG_UNK2 = 32,
+		DVAR_FLAG_UNK3 = 64,
+		DVAR_FLAG_UNK4 = 128,			// bg_regdvars used
+		DVAR_FLAG_USERCREATED = 256,	// set cmd, or script created
+		DVAR_FLAG_UNK5 = 512,
+		DVAR_FLAG_UNK6 = 1024,
+		DVAR_FLAG_UNK7 = 2048,
+		DVAR_FLAG_UNK8 = 4096,
+	};
+
+	enum DvarType
+	{
+		DVAR_TYPE_BOOL = 0,
+		DVAR_TYPE_FLOAT = 1,
+		DVAR_TYPE_FLOAT_2 = 2,
+		DVAR_TYPE_FLOAT_3 = 3,
+		DVAR_TYPE_FLOAT_4 = 4,
+		DVAR_TYPE_INT = 5,
+		DVAR_TYPE_ENUM = 6,
+		DVAR_TYPE_STRING = 7,
+		DVAR_TYPE_COLOR = 8,
+		//DVAR_TYPE_INT64 = 9
+	};
+
 	union DvarValue
 	{
 		bool enabled;
@@ -344,6 +405,4 @@ namespace game
 		SV_CMD_CAN_IGNORE = 0x0,
 		SV_CMD_RELIABLE = 0x1,
 	};
-
-
 }

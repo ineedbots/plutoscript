@@ -1,5 +1,7 @@
 #include "stdinc.hpp"
 #include "callbacks.hpp"
+#include "chat.hpp"
+#include "commands.hpp"
 
 DLL_EXPORT void on_initialize_context(const char* script, chaiscript::ChaiScript* chai)
 {
@@ -20,6 +22,21 @@ DLL_EXPORT void on_initialize_context(const char* script, chaiscript::ChaiScript
     chai->add(chaiscript::fun(&plutoscript::Vec3::y), "y");
     chai->add(chaiscript::fun(&plutoscript::Vec3::z), "z");
     chai->add(chaiscript::fun(&plutoscript::Vec3::operator std::string), "to_string");
+
+    // chat
+    chai->add(chaiscript::fun(chat::raw_say_all), "chat_raw_say_all");
+    chai->add(chaiscript::fun([](const std::string& name, const std::string& message)
+        { return chat::say_all(name, message); }), "chat_say_all");
+    chai->add(chaiscript::fun([](const std::string& message)
+        { return chat::say_all(message); }), "chat_say_all");
+    chai->add(chaiscript::fun(chat::raw_say_to), "chat_raw_say_to");
+    chai->add(chaiscript::fun([](int entnum, const std::string& name, const std::string& message)
+        { return chat::say_to(entnum, name, message); }), "chat_say_to");
+    chai->add(chaiscript::fun([](int entnum, const std::string& message)
+        { return chat::say_to(entnum, message); }), "chat_say_to");
+
+    // cmd
+    chai->add(chaiscript::fun(commands::execute_command), "cmd_execute");
 }
 
 DLL_EXPORT void on_script_loaded(const char* script, chaiscript::ChaiScript* chai)
@@ -38,6 +55,8 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
     {
     case DLL_PROCESS_ATTACH:
         callbacks::init();
+        chat::init();
+        commands::init();
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:
     case DLL_PROCESS_DETACH:

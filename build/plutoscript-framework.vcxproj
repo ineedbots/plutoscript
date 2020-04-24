@@ -10,21 +10,13 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\source\callbacks\callbacks.cpp" />
-    <ClCompile Include="..\source\callbacks\dllmain.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\source\callbacks\callbacks.hpp" />
-    <ClInclude Include="..\source\callbacks\stdinc.hpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{D223E51A-4004-41F3-9175-828AC128600C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>callbacks</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>plutoscript-callbacks</ProjectName>
+    <ProjectName>plutoscript-framework</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'" Label="Configuration">
@@ -106,6 +98,18 @@
     <ProjectReference Include="plutoscript-shared.vcxproj">
       <Project>{2793B7CD-B555-403A-9F90-4E7963EA9FAD}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\source\framework\callbacks.cpp" />
+    <ClCompile Include="..\source\framework\chat.cpp" />
+    <ClCompile Include="..\source\framework\commands.cpp" />
+    <ClCompile Include="..\source\framework\dllmain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\source\framework\callbacks.hpp" />
+    <ClInclude Include="..\source\framework\chat.hpp" />
+    <ClInclude Include="..\source\framework\commands.hpp" />
+    <ClInclude Include="..\source\framework\stdinc.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

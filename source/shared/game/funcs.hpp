@@ -12,11 +12,49 @@ namespace game
 	typedef void(__cdecl* Cmd_RegisterNotification_t)(const int clientNum, const char* commandString, const char* notifyString);
 	extern Cmd_RegisterNotification_t Cmd_RegisterNotification;
 
+	typedef void(__cdecl* SV_Cmd_ArgvBuffer_t)(int arg, char* buffer, int bufferLength);
+	extern SV_Cmd_ArgvBuffer_t SV_Cmd_ArgvBuffer;
+
+	inline int Cmd_Argc()
+	{
+		return cmd_args->argc[cmd_args->nesting];
+	}
+
+	inline const char* Cmd_Argv(int argIndex)
+	{
+		if (argIndex >= cmd_args->argc[cmd_args->nesting])
+		{
+			return "";
+		}
+		return cmd_args->argv[cmd_args->nesting][argIndex];
+	}
+
+	inline int SV_Cmd_Argc()
+	{
+		return sv_cmd_args->argc[sv_cmd_args->nesting];
+	}
+
+	inline const char* SV_Cmd_Argv(int argIndex)
+	{
+		if (argIndex >= sv_cmd_args->argc[sv_cmd_args->nesting])
+		{
+			return "";
+		}
+		return sv_cmd_args->argv[sv_cmd_args->nesting][argIndex];
+	}
+
 	// Server
 	typedef void(__cdecl* SV_GameSendServerCommand_t)(int clientNum, svscmd_type type, const char* text);
 	extern SV_GameSendServerCommand_t SV_GameSendServerCommand;
 
+	typedef void(__cdecl* ClientCommand_t)(int clientNum);
+	extern ClientCommand_t ClientCommand;
+
 	// Script
+	typedef const char* (__cdecl* SL_ConvertToString_t)(scr_string_t stringValue);
+	extern SL_ConvertToString_t SL_ConvertToString;
+	typedef void(__cdecl* VM_Notify_t)(unsigned int notifyListOwnerId, scr_string_t stringValue, VariableValue* top);
+	extern VM_Notify_t VM_Notify;
 	typedef void(__cdecl* Scr_AddInt_t)(int value);
 	extern Scr_AddInt_t Scr_AddInt;
 	typedef void(__cdecl* Scr_AddConstString_t)(scr_string_t value);
@@ -48,6 +86,9 @@ namespace game
 	extern Scr_PlayerDamage_t Scr_PlayerDamage;
 	typedef void(__cdecl* Scr_PlayerKilled_t)(gentity_s*, gentity_s*, gentity_s*, int, MeansOfDeath, Weapon, bool, const float*, HitLocation, int, int);
 	extern Scr_PlayerKilled_t Scr_PlayerKilled;
+
+	typedef void(__cdecl* PlayerCmd_finishPlayerDamage_t)(scr_entref_t entref);
+	extern PlayerCmd_finishPlayerDamage_t PlayerCmd_finishPlayerDamage;
 
 	typedef char* (__cdecl* BG_GetWeaponNameComplete_t)(Weapon weapon, bool isAlternate, char* output, unsigned int maxStringLen);
 	extern BG_GetWeaponNameComplete_t BG_GetWeaponNameComplete;

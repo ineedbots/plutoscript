@@ -1,0 +1,66 @@
+
+def onPlayerConnected(args)
+{
+    var player = args[0];
+
+    player.notifyOnPlayerCommand("toggle_ads_pressed", "+toggleads_throw");
+
+    var ads = 0;
+    var adsCount = 0;
+    setInterval(fun[player, ads, adsCount]()
+    {
+        
+        ads = player.playerAds();
+
+        if (ads == 1)
+        {
+            adsCount += 1;
+        }
+        else
+        {
+            adsCount = 0;
+        }
+
+        if (adsCount > 3)
+        {
+            player.iprintlnbold("^1HARDSCOPE NOT ALLOWED!")
+            player.allowAds(false);
+            setTimeout(fun[player]() { player.allowAds(true); }, 400);
+        }
+
+        if(player.adsbuttonpressed() == 0 && ads == 0)
+        {
+            player.allowAds(true);
+        }
+
+    }, 100);
+
+    player.onNotify("toggle_ads_pressed", fun[player]()
+    {
+        if(player.playerAds() == 0)
+        {
+            player.allowAds(true);
+        }
+    });
+
+    
+}
+
+def onPlayerSpawned(args)
+{
+    var player = args[0];
+
+}
+
+def onPlayerDamage(ePlayer, eInflictor, eAttacker, iDamage, iDflags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitloc, iTimeOffset)
+{
+    if(sMeansOfDeath == "MOD_MELEE")
+    {
+        iDamage = 0;
+    }
+}
+
+//add_callback_startup_game(onStartupGameType);
+add_callback_player_damage(onPlayerDamage);
+level.onNotify("connected", onPlayerConnected);
+level.onNotify("player_spawned", onPlayerSpawned);

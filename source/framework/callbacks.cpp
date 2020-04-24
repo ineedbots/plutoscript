@@ -161,6 +161,25 @@ namespace callbacks
 		return Scr_PlayerKilled_(self, inflictor, attacker, damage, meansOfDeath, weapon, isAlternate, vDir, hitLoc, psTimeOffset, deathAnimDuration);
 	}
 
+	//VM_Notify_t VM_Notify_;
+
+	/*void VM_Notify_stub(unsigned int notifyListOwnerId, scr_string_t stringValue, VariableValue* top)
+	{
+		const char* string = SL_ConvertToString(stringValue);
+
+		int numArgs = 0;
+
+		if (top->type != 8)
+		{
+			for (VariableValue* value = top; value->type != 8; value--)
+			{
+				numArgs++;
+			}
+		}
+		//printf("VM_Notify: id='%s' ArgsNum='%d'\n", string, numArgs);
+		return VM_Notify_(notifyListOwnerId, stringValue, top);
+	}*/
+
 	void set_chai(chaiscript::ChaiScript* c)
 	{
 		chai = c;
@@ -175,6 +194,20 @@ namespace callbacks
 		player_killed_callbacks.clear();
 	}
 
+	int* clientNum;
+
+	void handle_client_command()
+	{
+		printf("handle_client_command \n");
+		//printf("client cmd: %s\n", SV_Cmd_Argv(0));
+		//if (!Scriptability_ClientCommand(Cmd_Argv_sv(0), *clientNum))
+		//{
+			//const char* unkCmd = util::string::va("%c \"GAME_UNKNOWNCLIENTCOMMAND\x15%s", 101, SV_Cmd_Argv(0));
+			//SV_GameSendServerCommand(*clientNum, SV_CMD_CAN_IGNORE, unkCmd);
+		//}
+	}
+
+
 	void init()
 	{
 		Scr_StartupGameType_ =	util::hook::detour(Scr_StartupGameType, Scr_StartupGameType_stub, 5);
@@ -182,5 +215,6 @@ namespace callbacks
 		Scr_PlayerDisconnect_ = util::hook::detour(Scr_PlayerDisconnect, Scr_PlayerDisconnect_stub, 5);
 		Scr_PlayerDamage_ =		util::hook::detour(Scr_PlayerDamage, Scr_PlayerDamage_stub, 10);
 		Scr_PlayerKilled_ =		util::hook::detour(Scr_PlayerKilled, Scr_PlayerKilled_stub, 10);
+		//VM_Notify_ =			util::hook::detour(VM_Notify, VM_Notify_stub, 6);
 	}
 }
