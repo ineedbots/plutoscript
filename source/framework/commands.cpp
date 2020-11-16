@@ -97,7 +97,7 @@ namespace commands
 
 	void init()
 	{
-        util::hook::jump(0x546323, Cmd_ExecuteSingleCommand_stub);
+        //util::hook::jump(0x546323, Cmd_ExecuteSingleCommand_stub);
 
         // need to fix the exception when a player disconnects!!!!
         //ClientCommand_ = util::hook::detour(ClientCommand, ClientCommand_stub, 6); 

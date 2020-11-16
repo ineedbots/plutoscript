@@ -210,11 +210,11 @@ namespace callbacks
 
 	void init()
 	{
-		Scr_StartupGameType_ =	util::hook::detour(Scr_StartupGameType, Scr_StartupGameType_stub, 5);
-		Scr_PlayerConnect_ =	util::hook::detour(Scr_PlayerConnect, Scr_PlayerConnect_stub, 5);
-		Scr_PlayerDisconnect_ = util::hook::detour(Scr_PlayerDisconnect, Scr_PlayerDisconnect_stub, 5);
-		Scr_PlayerDamage_ =		util::hook::detour(Scr_PlayerDamage, Scr_PlayerDamage_stub, 10);
-		Scr_PlayerKilled_ =		util::hook::detour(Scr_PlayerKilled, Scr_PlayerKilled_stub, 10);
+		Scr_StartupGameType_ =	util::hook::vp::detour(Scr_StartupGameType, Scr_StartupGameType_stub, 5);
+		Scr_PlayerConnect_ =	util::hook::vp::detour(Scr_PlayerConnect, Scr_PlayerConnect_stub, 5);
+		Scr_PlayerDisconnect_ = util::hook::vp::detour(Scr_PlayerDisconnect, Scr_PlayerDisconnect_stub, 5);
+		Scr_PlayerDamage_ =		util::hook::vp::detour(Scr_PlayerDamage, Scr_PlayerDamage_stub, 10);
+		Scr_PlayerKilled_ =		util::hook::vp::detour(Scr_PlayerKilled, Scr_PlayerKilled_stub, 10);
 		//VM_Notify_ =			util::hook::detour(VM_Notify, VM_Notify_stub, 6);
 	}
 }
