@@ -15,6 +15,8 @@ namespace game
 	ClientCommand_t ClientCommand = ClientCommand_t(0x502CB0);
 	SV_Cmd_ArgvBuffer_t SV_Cmd_ArgvBuffer = SV_Cmd_ArgvBuffer_t(0x5459F0);
 
+	ConcatArgs_t ConcatArgs = ConcatArgs_t(0x502150);
+
 	// Script
 	SL_ConvertToString_t SL_ConvertToString = SL_ConvertToString_t(0x564270);
 	VM_Notify_t VM_Notify = VM_Notify_t(0x569720);
@@ -42,7 +44,6 @@ namespace game
 	BG_GetWeaponNameComplete_t  BG_GetWeaponNameComplete = BG_GetWeaponNameComplete_t(0x42F760);
 	BG_GetWeaponClass_t BG_GetWeaponClass = BG_GetWeaponClass_t(0x436ED0);
 	BG_GetWeaponClassName_t BG_GetWeaponClassName = BG_GetWeaponClassName_t(0x42F160);
-
 
 	G_GetHitLocationString_t G_GetHitLocationString = G_GetHitLocationString_t(0x5052A0);
 }

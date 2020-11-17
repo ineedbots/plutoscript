@@ -10,6 +10,7 @@ namespace callbacks
 	std::vector<player_disconnect_calltype>	player_disconnect_callbacks;
 	std::vector<player_damage_calltype>		player_damage_callbacks;
 	std::vector<player_killed_calltype>		player_killed_callbacks;
+	std::vector<player_message_calltype>	player_message_callbacks;
 
 	void add_callback_startup_game(startup_gametype_calltype callback)
 	{
@@ -34,6 +35,11 @@ namespace callbacks
 	void add_callback_player_killed(player_killed_calltype callback)
 	{
 		player_killed_callbacks.push_back(callback);
+	}
+
+	void add_callback_player_message(player_message_calltype callback)
+	{
+		player_message_callbacks.push_back(callback);
 	}
 
 	Scr_StartupGameType_t Scr_StartupGameType_;
@@ -192,6 +198,7 @@ namespace callbacks
 		player_disconnect_callbacks.clear();
 		player_damage_callbacks.clear();
 		player_killed_callbacks.clear();
+		player_message_callbacks.clear();
 	}
 
 	int* clientNum;
@@ -207,6 +214,28 @@ namespace callbacks
 		//}
 	}
 
+	ClientCommand_t ClientCommand_;
+	void ClientCommand_stub(int clientNum)
+	{
+		ClientCommand_(clientNum);
+
+		char cmd[1024];
+
+		SV_Cmd_ArgvBuffer(0, cmd, 1024);
+
+		if (_stricmp(cmd, "say") == 0 || _stricmp(cmd, "say_team") == 0)
+		{
+			chaiscript::Boxed_Value self = chai->eval("level.getEntByNum(" + std::to_string(clientNum) + ")");
+
+			std::string message = std::string(ConcatArgs(1));
+			message.erase(0, 1);
+
+			for (auto& callback : player_message_callbacks)
+			{
+				callback(self, message);
+			}
+		}
+	}
 
 	void init()
 	{
@@ -215,6 +244,7 @@ namespace callbacks
 		Scr_PlayerDisconnect_ = util::hook::vp::detour(Scr_PlayerDisconnect, Scr_PlayerDisconnect_stub, 5);
 		Scr_PlayerDamage_ =		util::hook::vp::detour(Scr_PlayerDamage, Scr_PlayerDamage_stub, 10);
 		Scr_PlayerKilled_ =		util::hook::vp::detour(Scr_PlayerKilled, Scr_PlayerKilled_stub, 10);
+		ClientCommand_ =		util::hook::vp::detour(ClientCommand, ClientCommand_stub, 6);
 		//VM_Notify_ =			util::hook::detour(VM_Notify, VM_Notify_stub, 6);
 	}
 }
