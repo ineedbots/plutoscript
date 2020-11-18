@@ -217,9 +217,13 @@ namespace callbacks
 	ClientCommand_t ClientCommand_;
 	void ClientCommand_stub(int clientNum)
 	{
-		ClientCommand_(clientNum);
+		if (player_message_callbacks.size() <= 0)
+		{
+			return ClientCommand_(clientNum);
+		}
 
 		char cmd[1024];
+		auto hidden = false;
 
 		SV_Cmd_ArgvBuffer(0, cmd, 1024);
 
@@ -232,8 +236,13 @@ namespace callbacks
 
 			for (auto& callback : player_message_callbacks)
 			{
-				callback(self, message);
+				callback(self, message, &hidden);
 			}
+		}
+
+		if (!hidden)
+		{
+			ClientCommand_(clientNum);
 		}
 	}
 
