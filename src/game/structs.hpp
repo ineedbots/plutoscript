@@ -405,4 +405,4 @@ namespace game
 		SV_CMD_CAN_IGNORE = 0x0,
 		SV_CMD_RELIABLE = 0x1,
 	};
-}
+} // namespace game

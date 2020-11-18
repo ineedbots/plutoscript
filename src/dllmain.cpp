@@ -1,12 +1,22 @@
 #include "stdinc.hpp"
-#include "callbacks.hpp"
-#include "chat.hpp"
-#include "commands.hpp"
+#include "framework/callbacks.hpp"
+#include "framework/chat.hpp"
+#include "framework/commands.hpp"
+
+void init()
+{
+    callbacks::init();
+}
+
+void exit()
+{
+
+}
 
 DLL_EXPORT void on_initialize_context(const char* script, chaiscript::ChaiScript* chai)
 {
-    callbacks::set_chai(chai);
     callbacks::cleanup();
+    callbacks::context(chai);
 
     chai->add(chaiscript::fun(callbacks::add_callback_startup_game), "add_callback_startup_game");
     chai->add(chaiscript::fun(callbacks::add_callback_player_connect), "add_callback_player_connect");
@@ -44,28 +54,20 @@ DLL_EXPORT void on_initialize_context(const char* script, chaiscript::ChaiScript
     chai->add(chaiscript::fun(commands::execute_command), "cmd_execute");
 }
 
-DLL_EXPORT void on_script_loaded(const char* script, chaiscript::ChaiScript* chai)
-{
+DLL_EXPORT void on_script_loaded(const char* script, chaiscript::ChaiScript* chai) { }
 
-}
-
-DLL_EXPORT void on_script_unloaded(const char* script, chaiscript::ChaiScript* chai)
-{
-
-}
+DLL_EXPORT void on_script_unloaded(const char* script, chaiscript::ChaiScript* chai) { }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
 {
-    switch (ul_reason_for_call)
+    if (ul_reason_for_call == DLL_PROCESS_ATTACH)
     {
-    case DLL_PROCESS_ATTACH:
-        callbacks::init();
-        chat::init();
-        commands::init();
-    case DLL_THREAD_ATTACH:
-    case DLL_THREAD_DETACH:
-    case DLL_PROCESS_DETACH:
-        break;
+        init();
     }
+    else if (ul_reason_for_call == DLL_PROCESS_DETACH)
+    {
+        exit();
+    }
+
     return TRUE;
 }

@@ -4,10 +4,9 @@
 
 */
 
-#include "../stdinc.hpp"
-#include "memory.hpp"
+#include "stdinc.hpp"
 
-namespace util
+namespace utils
 {
 	memory::allocator memory::mem_allocator_;
 

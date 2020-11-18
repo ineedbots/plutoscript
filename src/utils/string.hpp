@@ -7,7 +7,7 @@
 #pragma once
 #include "memory.hpp"
 
-namespace util::string
+namespace utils::string
 {
 	template <size_t Buffers, size_t MinBufferSize>
 	class va_provider final

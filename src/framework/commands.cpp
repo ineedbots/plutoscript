@@ -5,7 +5,7 @@ namespace commands
 {
 	void execute_command(const std::string& command)
 	{
-		Cbuf_AddText(LOCAL_CLIENT_0, util::string::va("%s\n", command.c_str()));
+        game::Cbuf_AddText(game::LOCAL_CLIENT_0, utils::string::va("%s\n", command.data()));
 	}
 
     bool handle_server_command()
@@ -39,17 +39,17 @@ namespace commands
         }
     }
 
-    ClientCommand_t ClientCommand_;
+    /*iw5::ClientCommand_t ClientCommand_;
 
     void ClientCommand_stub(int clientNum)
     {
         char cmd[1024];
 
-        int client = *(int*)(int)(g_entities + 628 * clientNum) + 344;
+        int client = *(int*)(int)(iw5::g_entities + 628 * clientNum) + 344;
 
         if (client)
         {
-            SV_Cmd_ArgvBuffer(0, cmd, 1024);
+            iw5::SV_Cmd_ArgvBuffer(0, cmd, 1024);
             
             // Game ones
             if (!(_stricmp(cmd, "n") && _stricmp(cmd, "say") && _stricmp(cmd, "say_team") && _stricmp(cmd, "s") && _stricmp(cmd, "mr")))
@@ -60,12 +60,12 @@ namespace commands
             // Our handler
             if (!handle_client_command(clientNum))
             {
-                const char* unkCmd = util::string::va("%c \"GAME_UNKNOWNCLIENTCOMMAND\x15%s", 101, cmd);
-                SV_GameSendServerCommand(clientNum, SV_CMD_CAN_IGNORE, unkCmd);
+                const char* unkCmd = utils::string::va("%c \"GAME_UNKNOWNCLIENTCOMMAND\x15%s", 101, cmd);
+                iw5::SV_GameSendServerCommand(clientNum, iw5::SV_CMD_CAN_IGNORE, unkCmd);
             }
             
         }
-    }
+    }*/
 
     /* Rekti's call hook on menu response broke this
 

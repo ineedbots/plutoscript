@@ -6,7 +6,7 @@
 
 #pragma once
 
-namespace util
+namespace utils
 {
 	class memory final
 	{

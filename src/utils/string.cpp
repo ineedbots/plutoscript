@@ -4,10 +4,9 @@
 
 */
 
-#include "../stdinc.hpp"
-#include "string.hpp"
+#include "stdinc.hpp"
 
-namespace util::string
+namespace utils::string
 {
 	const char* va(const char* fmt, ...)
 	{
