@@ -3,5 +3,5 @@
 class cmd
 {
 public:
-    void execute_command(const std::string& command);
+    static void execute_command(const std::string& command);
 };

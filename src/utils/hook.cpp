@@ -2,7 +2,7 @@
 
 #include "stdinc.hpp"
 
-namespace xsk::hook
+namespace utils::hook
 {
 	void* allocate_stub_memory(size_t size)
 	{

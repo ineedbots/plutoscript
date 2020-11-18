@@ -3,12 +3,12 @@
 
 chaiscript::ChaiScript* callbacks::ctx_;
 
-xsk::hook::detour callbacks::startup_gametype_hook_;
-xsk::hook::detour callbacks::player_connect_hook_;
-xsk::hook::detour callbacks::player_disconnect_hook_;
-xsk::hook::detour callbacks::player_damage_hook_;
-xsk::hook::detour callbacks::player_killed_hook_;
-xsk::hook::detour callbacks::client_command_hook_;
+utils::hook::detour callbacks::startup_gametype_hook_;
+utils::hook::detour callbacks::player_connect_hook_;
+utils::hook::detour callbacks::player_disconnect_hook_;
+utils::hook::detour callbacks::player_damage_hook_;
+utils::hook::detour callbacks::player_killed_hook_;
+utils::hook::detour callbacks::client_command_hook_;
 
 std::vector<startup_gametype_calltype>	callbacks::startup_gametype_callbacks_;
 std::vector<player_connect_calltype>	callbacks::player_connect_callbacks_;
@@ -19,13 +19,13 @@ std::vector<player_message_calltype>	callbacks::player_message_callbacks_;
 
 void callbacks::init()
 {
-	startup_gametype_hook_	= xsk::hook::detour(game::Scr_StartupGameType, startup_gametype_stub, 5);
-	player_connect_hook_	= xsk::hook::detour(game::Scr_PlayerConnect, player_connect_stub, 5);
-	player_disconnect_hook_ = xsk::hook::detour(game::Scr_PlayerDisconnect, player_disconnect_stub, 5);
-	player_damage_hook_		= xsk::hook::detour(game::Scr_PlayerDamage, player_damage_stub, 10);
-	player_killed_hook_		= xsk::hook::detour(game::Scr_PlayerKilled, player_killed_stub, 10);
-	client_command_hook_	= xsk::hook::detour(game::ClientCommand, client_command_stub, 6);
-	//vm_notify_hook_		= xsk::hook::detour(VM_Notify, vm_notify_stub, 6);
+	startup_gametype_hook_	= utils::hook::detour(game::Scr_StartupGameType, startup_gametype_stub, 5);
+	player_connect_hook_	= utils::hook::detour(game::Scr_PlayerConnect, player_connect_stub, 5);
+	player_disconnect_hook_ = utils::hook::detour(game::Scr_PlayerDisconnect, player_disconnect_stub, 5);
+	player_damage_hook_		= utils::hook::detour(game::Scr_PlayerDamage, player_damage_stub, 10);
+	player_killed_hook_		= utils::hook::detour(game::Scr_PlayerKilled, player_killed_stub, 10);
+	client_command_hook_	= utils::hook::detour(game::ClientCommand, client_command_stub, 6);
+	//vm_notify_hook_		= utils::hook::detour(VM_Notify, vm_notify_stub, 6);
 }
 
 void callbacks::cleanup()

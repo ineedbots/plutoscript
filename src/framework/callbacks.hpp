@@ -24,12 +24,12 @@ public:
 private:
 	static chaiscript::ChaiScript* ctx_;
 
-	static xsk::hook::detour startup_gametype_hook_;
-	static xsk::hook::detour player_connect_hook_;
-	static xsk::hook::detour player_disconnect_hook_;
-	static xsk::hook::detour player_damage_hook_;
-	static xsk::hook::detour player_killed_hook_;
-	static xsk::hook::detour client_command_hook_;
+	static utils::hook::detour startup_gametype_hook_;
+	static utils::hook::detour player_connect_hook_;
+	static utils::hook::detour player_disconnect_hook_;
+	static utils::hook::detour player_damage_hook_;
+	static utils::hook::detour player_killed_hook_;
+	static utils::hook::detour client_command_hook_;
 
 	static std::vector<startup_gametype_calltype>	startup_gametype_callbacks_;
 	static std::vector<player_connect_calltype>	player_connect_callbacks_;
