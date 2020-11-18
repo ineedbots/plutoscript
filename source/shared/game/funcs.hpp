@@ -15,6 +15,9 @@ namespace game
 	typedef void(__cdecl* SV_Cmd_ArgvBuffer_t)(int arg, char* buffer, int bufferLength);
 	extern SV_Cmd_ArgvBuffer_t SV_Cmd_ArgvBuffer;
 
+	typedef char* (_cdecl* ConcatArgs_t)(int start);
+	extern ConcatArgs_t ConcatArgs;
+
 	inline int Cmd_Argc()
 	{
 		return cmd_args->argc[cmd_args->nesting];
@@ -97,10 +100,8 @@ namespace game
 	typedef const char* (__cdecl* BG_GetWeaponClassName_t)(int type);
 	extern BG_GetWeaponClassName_t BG_GetWeaponClassName;
 
-
 	typedef unsigned int(__cdecl* Scr_GetEntityId_t)(int, unsigned int);
 	extern Scr_GetEntityId_t Scr_GetEntityId;
-
 
 	typedef scr_string_t(__cdecl* G_GetHitLocationString_t)(HitLocation hitLoc);
 	extern G_GetHitLocationString_t G_GetHitLocationString;
