@@ -35,10 +35,9 @@ DLL_EXPORT void on_initialize_context(const char* script, chaiscript::ChaiScript
     chai->add(chaiscript::fun(&plutoscript::Vec3::z), "z");
     chai->add(chaiscript::fun(&plutoscript::Vec3::operator std::string), "to_string");
 
+    // chat
     chai->eval("def _entity::tell(message) { if (gsc.isPlayer(this) == 1) { chat_say_to(this.getEntityNumber(), message) } }");
     chai->eval("def _entity::tellraw(message) { if (gsc.isPlayer(this) == 1) { chat_raw_say_to(this.getEntityNumber(), message) } }");
-
-    // chat
     chai->add(chaiscript::fun(chat::raw_say_all), "chat_raw_say_all");
     chai->add(chaiscript::fun([](const std::string& name, const std::string& message)
         { return chat::say_all(name, message); }), "chat_say_all");
@@ -51,20 +50,20 @@ DLL_EXPORT void on_initialize_context(const char* script, chaiscript::ChaiScript
         { return chat::say_to(entnum, message); }), "chat_say_to");
 
     // cmd
-    chai->add(chaiscript::fun(commands::execute_command), "cmd_execute");
+    chai->add(chaiscript::fun(cmd::execute_command), "cmd_execute");
 }
 
 DLL_EXPORT void on_script_loaded(const char* script, chaiscript::ChaiScript* chai) { }
 
 DLL_EXPORT void on_script_unloaded(const char* script, chaiscript::ChaiScript* chai) { }
 
-BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
+BOOL APIENTRY DllMain(HMODULE hModule, DWORD  dwReason, LPVOID lpReserved)
 {
-    if (ul_reason_for_call == DLL_PROCESS_ATTACH)
+    if (dwReason == DLL_PROCESS_ATTACH)
     {
         init();
     }
-    else if (ul_reason_for_call == DLL_PROCESS_DETACH)
+    else if (dwReason == DLL_PROCESS_DETACH)
     {
         exit();
     }

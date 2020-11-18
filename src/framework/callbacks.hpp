@@ -32,11 +32,11 @@ private:
 	static xsk::hook::detour client_command_hook_;
 
 	static std::vector<startup_gametype_calltype>	startup_gametype_callbacks_;
-	static std::vector<player_connect_calltype>		player_connect_callbacks_;
+	static std::vector<player_connect_calltype>	player_connect_callbacks_;
 	static std::vector<player_disconnect_calltype>	player_disconnect_callbacks_;
-	static std::vector<player_damage_calltype>		player_damage_callbacks_;
-	static std::vector<player_killed_calltype>		player_killed_callbacks_;
-	static std::vector<player_message_calltype>		player_message_callbacks_;
+	static std::vector<player_damage_calltype>	player_damage_callbacks_;
+	static std::vector<player_killed_calltype>	player_killed_callbacks_;
+	static std::vector<player_message_calltype>	player_message_callbacks_;
 
 	static void startup_gametype_stub();
 	static void player_connect_stub(game::gentity_s* self);

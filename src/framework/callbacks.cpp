@@ -73,7 +73,6 @@ void callbacks::add_callback_player_message(player_message_calltype callback)
 	player_message_callbacks_.push_back(callback);
 }
 
-
 void callbacks::startup_gametype_stub()
 {
 	for (auto& callback : startup_gametype_callbacks_)
@@ -84,10 +83,9 @@ void callbacks::startup_gametype_stub()
 	return startup_gametype_hook_.invoke<void>();
 }
 
-
 void callbacks::player_connect_stub(game::gentity_s* self)
 {
-	chaiscript::Boxed_Value self_ = ctx_->eval("level.getEntByNum(" + std::to_string(self->state.number) + ")");
+	auto self_ = ctx_->eval("level.getEntByNum(" + std::to_string(self->state.number) + ")");
 
 	for (auto& callback : player_connect_callbacks_)
 	{
@@ -97,10 +95,9 @@ void callbacks::player_connect_stub(game::gentity_s* self)
 	return player_connect_hook_.invoke<void>(self);
 }
 
-
 void callbacks::player_disconnect_stub(game::gentity_s* self)
 {
-	chaiscript::Boxed_Value self_ = ctx_->eval("level.getEntByNum(" + std::to_string(self->state.number) + ")");
+	auto self_ = ctx_->eval("level.getEntByNum(" + std::to_string(self->state.number) + ")");
 
 	for (auto& callback : player_disconnect_callbacks_)
 	{
@@ -110,47 +107,23 @@ void callbacks::player_disconnect_stub(game::gentity_s* self)
 	return player_disconnect_hook_.invoke<void>(self);
 }
 
-
 void callbacks::player_damage_stub(game::gentity_s* self, game::gentity_s* inflictor, game::gentity_s* attacker, int damage,  int dflags, game::MeansOfDeath meansOfDeath, game::Weapon weapon, bool isAlternate, const float* vPoint, const float* vDir, game::HitLocation hitLoc, int timeOffset)
 {
-	chaiscript::Boxed_Value self_ = ctx_->eval("level.getEntByNum(" + std::to_string(self->state.number) + ")");
-	chaiscript::Boxed_Value inflictor_ = inflictor != 0 ? ctx_->eval("level.getEntByNum(" + std::to_string(inflictor->state.number) + ")") : chaiscript::Boxed_Value{};
-	chaiscript::Boxed_Value attacker_ = attacker != 0 ? ctx_->eval("level.getEntByNum(" + std::to_string(attacker->state.number) + ")") : chaiscript::Boxed_Value{};
+	auto self_ = ctx_->eval("level.getEntByNum(" + std::to_string(self->state.number) + ")");
+	
+	auto inflictor_ = inflictor != 0 ? ctx_->eval("level.getEntByNum(" + std::to_string(inflictor->state.number) + ")") : chaiscript::Boxed_Value{};
+	
+	auto attacker_ = attacker != 0 ? ctx_->eval("level.getEntByNum(" + std::to_string(attacker->state.number) + ")") : chaiscript::Boxed_Value{};
 		
-	std::string mod_ = plutoscript::GetMeansOfDeathName(meansOfDeath);
-	std::string weapon_ = plutoscript::GetWeaponName(weapon, isAlternate);
+	auto mod_ = plutoscript::GetMeansOfDeathName(meansOfDeath);
+	
+	auto weapon_ = plutoscript::GetWeaponName(weapon, isAlternate);
 
-	chaiscript::Boxed_Value point_;
-	std::vector<chaiscript::Boxed_Value> pointvals;
+	auto point_ = plutoscript::vector_to_chai(vPoint);
 
-	if (vPoint)
-	{
-		pointvals.push_back(chaiscript::var(vPoint[0]));
-		pointvals.push_back(chaiscript::var(vPoint[1]));
-		pointvals.push_back(chaiscript::var(vPoint[2]));
-		point_ = chaiscript::var(pointvals);
-	}
-	else
-	{
-		point_ = chaiscript::Boxed_Value{};
-	}
+	auto dir_ = plutoscript::vector_to_chai(vDir);
 
-	chaiscript::Boxed_Value dir_;
-	std::vector<chaiscript::Boxed_Value> values;
-
-	if (vDir)
-	{
-		values.push_back(chaiscript::var(vDir[0]));
-		values.push_back(chaiscript::var(vDir[1]));
-		values.push_back(chaiscript::var(vDir[2]));
-		dir_ = chaiscript::var(values);
-	}
-	else
-	{
-		dir_ = chaiscript::Boxed_Value{};
-	}
-
-	std::string hitloc_ = plutoscript::GetHitLocationName(hitLoc);
+	auto hitloc_ = plutoscript::GetHitLocationName(hitLoc);
 
 	for (auto& callback : player_damage_callbacks_)
 	{
@@ -162,30 +135,21 @@ void callbacks::player_damage_stub(game::gentity_s* self, game::gentity_s* infli
 	return player_damage_hook_.invoke<void>(self, inflictor, attacker, damage, dflags, meansOfDeath, weapon, isAlternate, vPoint, vDir, hitLoc, timeOffset);
 }
 
-
 void callbacks::player_killed_stub(game::gentity_s* self, game::gentity_s* inflictor, game::gentity_s* attacker, int damage, game::MeansOfDeath meansOfDeath, game::Weapon weapon, bool isAlternate, const float* vDir, game::HitLocation hitLoc, int psTimeOffset, int deathAnimDuration)
 {
-	chaiscript::Boxed_Value self_ = ctx_->eval("level.getEntByNum(" + std::to_string(self->state.number) + ")");
-	chaiscript::Boxed_Value inflictor_ = inflictor != 0 ? ctx_->eval("level.getEntByNum(" + std::to_string(inflictor->state.number) + ")") : chaiscript::Boxed_Value{};
-	chaiscript::Boxed_Value attacker_ = attacker != 0 ? ctx_->eval("level.getEntByNum(" + std::to_string(attacker->state.number) + ")") : chaiscript::Boxed_Value{};
-	std::string mod_ = plutoscript::GetMeansOfDeathName(meansOfDeath);
-	std::string weapon_ = plutoscript::GetWeaponName(weapon, isAlternate);
+	auto self_ = ctx_->eval("level.getEntByNum(" + std::to_string(self->state.number) + ")");
+	
+	auto inflictor_ = inflictor != 0 ? ctx_->eval("level.getEntByNum(" + std::to_string(inflictor->state.number) + ")") : chaiscript::Boxed_Value{};
+	
+	auto attacker_ = attacker != 0 ? ctx_->eval("level.getEntByNum(" + std::to_string(attacker->state.number) + ")") : chaiscript::Boxed_Value{};
+	
+	auto mod_ = plutoscript::GetMeansOfDeathName(meansOfDeath);
+	
+	auto weapon_ = plutoscript::GetWeaponName(weapon, isAlternate);
 
-	chaiscript::Boxed_Value dir_;
-	std::vector<chaiscript::Boxed_Value> values;
-	if (vDir)
-	{
-		values.push_back(chaiscript::var(vDir[0]));
-		values.push_back(chaiscript::var(vDir[1]));
-		values.push_back(chaiscript::var(vDir[2]));
-		dir_ = chaiscript::var(values);
-	}
-	else
-	{
-		dir_ = chaiscript::Boxed_Value{};
-	}
+	auto dir_ = plutoscript::vector_to_chai(vDir);
 
-	std::string hitloc_ = plutoscript::GetHitLocationName(hitLoc);
+	auto hitloc_ = plutoscript::GetHitLocationName(hitLoc);
 
 	for (auto& callback : player_killed_callbacks_)
 	{
@@ -209,7 +173,7 @@ void callbacks::client_command_stub(int clientNum)
 
 	if (cmd == "say"s || cmd == "say_team"s)
 	{
-		chaiscript::Boxed_Value self = ctx_->eval("level.getEntByNum(" + std::to_string(clientNum) + ")");
+		auto self = ctx_->eval("level.getEntByNum(" + std::to_string(clientNum) + ")");
 
 		std::string message = std::string(game::ConcatArgs(1));
 		message.erase(0, 1);

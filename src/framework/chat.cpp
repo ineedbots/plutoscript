@@ -20,6 +20,7 @@ void chat::say_to(int entnum, const std::string& name, const std::string& messag
 {
     raw_say_to(entnum, name + ": " + message);
 }
+
 void chat::raw_say_all(const std::string& message)
 {
     game::SV_GameSendServerCommand(-1, game::SV_CMD_CAN_IGNORE, utils::string::va("%c \"%s\"", 84, message.data()));

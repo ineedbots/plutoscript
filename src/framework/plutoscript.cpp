@@ -66,4 +66,24 @@ namespace plutoscript
 			return game::BG_GetWeaponNameComplete(weapon, 0, wep_name, 1024);
 		}
 	}
+
+	chaiscript::Boxed_Value vector_to_chai(const float* vec)
+	{
+		chaiscript::Boxed_Value vector;
+		std::vector<chaiscript::Boxed_Value> values;
+
+		if (vec)
+		{
+			values.push_back(chaiscript::var(vec[0]));
+			values.push_back(chaiscript::var(vec[1]));
+			values.push_back(chaiscript::var(vec[2]));
+			vector = chaiscript::var(values);
+		}
+		else
+		{
+			vector = chaiscript::Boxed_Value{};
+		}
+
+		return vector;
+	}
 }
