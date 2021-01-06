@@ -35,6 +35,11 @@ constexpr utils::function<scr_string_t(HitLocation hitLoc)> G_GetHitLocationStri
 
 constexpr utils::function<void __cdecl(client_s*, usercmd_s*)> SV_ClientThink(0x571AE0);
 constexpr utils::function<void __cdecl(client_s*, const char*, int)> SV_DropClient(0x570980);
+constexpr utils::function<dvar_t* __cdecl(const char* name, int defaultVal, int min, int max, DvarFlags flags, const char* description)> Dvar_RegisterInt(0x5BEA40);
+constexpr utils::function<dvar_t* __cdecl(const char* name, float defx, float defy, float min, float max, int flags, const char* description)> Dvar_RegisterVec2(0x5BEAE0);
+constexpr utils::function<dvar_t* __cdecl(const char* name, const char* defaultVal, int, const char*)> Dvar_RegisterString(0x5BEC90);
+constexpr utils::function<dvar_t* __cdecl(const char* name)> Dvar_FindVar(0x5BDCC0);
+constexpr utils::function<unsigned int __cdecl(const char* name)> G_GetWeaponForName(0x531070);
 
 inline int Cmd_Argc()
 {

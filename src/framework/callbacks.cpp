@@ -18,6 +18,8 @@ std::vector<player_damage_calltype>		callbacks::player_damage_callbacks_;
 std::vector<player_killed_calltype>		callbacks::player_killed_callbacks_;
 std::vector<player_message_calltype>	callbacks::player_message_callbacks_;
 
+callbacks::botMovements callbacks::g_botai[MAX_CLIENTS];
+
 void callbacks::init()
 {
 	startup_gametype_hook_	= utils::hook::detour(game::Scr_StartupGameType, startup_gametype_stub, 5);
@@ -31,8 +33,28 @@ void callbacks::init()
 	sv_userbot_hook_	= utils::hook::detour(0x5770B0, sv_userbot_stub_, 5);
 }
 
+void callbacks::init_bot_vars()
+{
+	for (int i = 0; i < MAX_CLIENTS; i++)
+	{
+		callbacks::g_botai[i] = { 0 };
+
+		callbacks::g_botai[i].buttonsDvar = game::Dvar_RegisterInt(utils::string::va("bot%d_buttons", i), 0, 0x80000000, 0x7FFFFFFF, game::DVAR_FLAG_USERCREATED, "");
+		callbacks::g_botai[i].movementDvar = game::Dvar_RegisterVec2(utils::string::va("bot%d_movement", i), 0.0f, 0.0f, -127.0f, 127.0f, game::DVAR_FLAG_USERCREATED, "");
+		callbacks::g_botai[i].weaponDvar = game::Dvar_RegisterString(utils::string::va("bot%d_weapon", i), "", game::DVAR_FLAG_USERCREATED, "");
+		callbacks::g_botai[i].pingDvar = game::Dvar_RegisterInt(utils::string::va("bot%d_ping", i), 0, 0, 1000, game::DVAR_FLAG_USERCREATED, "");
+	}
+}
+
 void callbacks::sv_userbot_stub(game::client_s* cl)
 {
+	int cl_num = cl - game::svs_clients;
+	
+	char forward;
+	char right;
+	short weapon;
+	game::usercmd_s cmd = { 0 };
+
 	if (cl->state < 4)
 	{
 		game::SV_DropClient(cl, "EXE_DISCONNECTED", 1);
@@ -40,11 +62,24 @@ void callbacks::sv_userbot_stub(game::client_s* cl)
 		return;
 	}
 
-	game::usercmd_s cmd = { 0 };
 
+	forward = (int)callbacks::g_botai[cl_num].movementDvar->current.vector[0];
+	right = (int)callbacks::g_botai[cl_num].movementDvar->current.vector[1];
+
+
+	const char *weap = callbacks::g_botai[cl_num].weaponDvar->current.string;
+	if (!strcmp(weap, ""))
+		weapon = 1;
+	else
+		weapon = game::G_GetWeaponForName(weap);
+
+	
 	cmd.serverTime = game::svs_time;
 
-	cmd.forwardmove = 127;
+	cmd.weapon = weapon;
+	cmd.buttons = callbacks::g_botai[cl_num].buttonsDvar->current.unsignedInt;
+	cmd.forwardmove = forward;
+	cmd.rightmove = right;
 
 	cl->deltaMessage = cl->outgoingSequence - 1;
 	game::SV_ClientThink(cl, &cmd);
@@ -113,6 +148,8 @@ void callbacks::startup_gametype_stub()
 	{
 		callback();
 	}
+
+	callbacks::init_bot_vars();
 
 	return startup_gametype_hook_.invoke<void>();
 }

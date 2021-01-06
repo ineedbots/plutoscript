@@ -1,5 +1,6 @@
 #pragma once
 #include "stdinc.hpp"
+#define MAX_CLIENTS 18
 
 using startup_gametype_calltype		= std::function<void()>;
 using player_connect_calltype		= std::function<void(const chaiscript::Boxed_Value&)>;
@@ -22,6 +23,15 @@ public:
 	static void add_callback_player_message(player_message_calltype callback);
 
 private:
+	struct botMovements {
+		game::dvar_t* weaponDvar;
+		game::dvar_t* movementDvar;
+		game::dvar_t* buttonsDvar;
+		game::dvar_t* pingDvar;
+	};
+
+	static botMovements g_botai[MAX_CLIENTS];
+
 	static chaiscript::ChaiScript* ctx_;
 
 	static utils::hook::detour startup_gametype_hook_;
@@ -47,4 +57,6 @@ private:
 	static void client_command_stub(int clientNum);
 	static void sv_userbot_stub_();
 	static void sv_userbot_stub(game::client_s*);
+
+	static void init_bot_vars();
 };
