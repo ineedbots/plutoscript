@@ -34,6 +34,7 @@ constexpr utils::function<unsigned int(int, unsigned int)> Scr_GetEntityId(0x567
 constexpr utils::function<scr_string_t(HitLocation hitLoc)> G_GetHitLocationString(0x5052A0);
 
 constexpr utils::function<void __cdecl(client_s*, usercmd_s*)> SV_ClientThink(0x571AE0);
+constexpr utils::function<void __cdecl(client_s*, const char*, int)> SV_DropClient(0x570980);
 
 inline int Cmd_Argc()
 {

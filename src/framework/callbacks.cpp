@@ -33,6 +33,13 @@ void callbacks::init()
 
 void callbacks::sv_userbot_stub(game::client_s* cl)
 {
+	if (cl->state < 4)
+	{
+		game::SV_DropClient(cl, "EXE_DISCONNECTED", 1);
+		cl->state = 0;
+		return;
+	}
+
 	game::usercmd_s cmd = { 0 };
 
 	cmd.serverTime = game::svs_time;
