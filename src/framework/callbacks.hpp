@@ -30,6 +30,7 @@ private:
 	static utils::hook::detour player_damage_hook_;
 	static utils::hook::detour player_killed_hook_;
 	static utils::hook::detour client_command_hook_;
+	static utils::hook::detour sv_userbot_hook_;
 
 	static std::vector<startup_gametype_calltype>	startup_gametype_callbacks_;
 	static std::vector<player_connect_calltype>	player_connect_callbacks_;
@@ -44,4 +45,6 @@ private:
 	static void player_damage_stub(game::gentity_s* self, game::gentity_s* inflictor, game::gentity_s* attacker, int damage, int dflags, game::MeansOfDeath meansOfDeath, game::Weapon weapon, bool isAlternate, const float* vPoint, const float* vDir, game::HitLocation hitLoc, int timeOffset);
 	static void player_killed_stub(game::gentity_s* self, game::gentity_s* inflictor, game::gentity_s* attacker, int damage, game::MeansOfDeath meansOfDeath, game::Weapon weapon, bool isAlternate, const float* vDir, game::HitLocation hitLoc, int psTimeOffset, int deathAnimDuration);
 	static void client_command_stub(int clientNum);
+	static void sv_userbot_stub_();
+	static void sv_userbot_stub(game::client_s*);
 };

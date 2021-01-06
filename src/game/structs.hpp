@@ -405,4 +405,37 @@ namespace game
 		SV_CMD_CAN_IGNORE = 0x0,
 		SV_CMD_RELIABLE = 0x1,
 	};
+
+	struct usercmd_s
+	{
+	  int serverTime;
+	  int buttons;
+	  int angles[3];
+	  unsigned __int16 weapon;
+	  unsigned __int16 primaryWeaponForAltMode;
+	  unsigned __int16 offHandIndex;
+	  unsigned __int16 unk;
+	  char forwardmove;
+	  char rightmove;
+	  float meleeChargeYaw;
+	  char meleeChargeDist;
+	  char selectedLoc[2];
+	  char selectedLocAngle;
+	  char remoteControlAngles[2];
+	  unsigned __int16 unk2;
+	};
+
+	struct client_s
+	{
+	  int state;
+	  int field_4;
+	  int deltaMessage;
+	  int field_C;
+	  int field_10;
+	  int field_14;
+	  int outgoingSequence;
+	  __int16 field_1C[6];
+	  int NET_AddrType;
+	  char field_2C[493164];
+	};
 } // namespace game

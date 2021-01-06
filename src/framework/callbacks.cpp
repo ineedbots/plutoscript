@@ -9,6 +9,7 @@ utils::hook::detour callbacks::player_disconnect_hook_;
 utils::hook::detour callbacks::player_damage_hook_;
 utils::hook::detour callbacks::player_killed_hook_;
 utils::hook::detour callbacks::client_command_hook_;
+utils::hook::detour callbacks::sv_userbot_hook_;
 
 std::vector<startup_gametype_calltype>	callbacks::startup_gametype_callbacks_;
 std::vector<player_connect_calltype>	callbacks::player_connect_callbacks_;
@@ -26,6 +27,32 @@ void callbacks::init()
 	player_killed_hook_		= utils::hook::detour(game::Scr_PlayerKilled, player_killed_stub, 10);
 	client_command_hook_	= utils::hook::detour(game::ClientCommand, client_command_stub, 6);
 	//vm_notify_hook_		= utils::hook::detour(VM_Notify, vm_notify_stub, 6);
+
+	sv_userbot_hook_	= utils::hook::detour(0x5770B0, sv_userbot_stub_, 5);
+}
+
+void callbacks::sv_userbot_stub(game::client_s* cl)
+{
+	game::usercmd_s cmd = { 0 };
+
+	cmd.serverTime = game::svs_time;
+
+	cmd.forwardmove = 127;
+
+	cl->deltaMessage = cl->outgoingSequence - 1;
+	game::SV_ClientThink(cl, &cmd);
+}
+
+__declspec(naked) void callbacks::sv_userbot_stub_()
+{
+	__asm
+	{
+		push edi
+		call callbacks::sv_userbot_stub
+		add esp, 4
+
+		retn
+	}
 }
 
 void callbacks::cleanup()

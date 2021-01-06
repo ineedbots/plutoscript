@@ -33,6 +33,8 @@ constexpr utils::function<const char*(int type)> BG_GetWeaponClassName(0x42F160)
 constexpr utils::function<unsigned int(int, unsigned int)> Scr_GetEntityId(0x567D80);
 constexpr utils::function<scr_string_t(HitLocation hitLoc)> G_GetHitLocationString(0x5052A0);
 
+constexpr utils::function<void __cdecl(client_s*, usercmd_s*)> SV_ClientThink(0x571AE0);
+
 inline int Cmd_Argc()
 {
 	return cmd_args->argc[cmd_args->nesting];
